@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { Box, Grid, makeStyles, CssBaseline, Container, TextField, Paper, Button, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
@@ -13,8 +13,11 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const Register = () => {
+const Register = ({ navbar, setNavbar }) => {
     const classes = useStyles();
+    useEffect(() => {
+        setNavbar(true);
+    }, [])
     return (
         <Box
             display="flex"

@@ -4,14 +4,16 @@ import { Instagram, Facebook, Mail, Phone } from '@material-ui/icons';
 
 const useStyles = makeStyles(() => ({
     text: {
-        color: "white"
+        color: "white",
+        fontFamily: "Nunito Sans",
+        fontWeight: "600"
     },
     paper: {
         color: "white",
         backgroundColor: '#343538',
         padding: "20px",
         marginTop: "20px",
-        boxShadow: "2px 2px 1px 1px #ECDE65 ,1px 1px 1px 0px #ECDE65,1px 1px 5px 0px #ECDE65",
+        boxShadow: "2px 2px 1px 1px #fea905 ,1px 1px 1px 0px #ECDE65,1px 1px 5px 0px #ECDE65",
         ['@media (max-width:400px)']: {
             padding: '10px'
         }
@@ -30,9 +32,9 @@ const useStyles = makeStyles(() => ({
         width: "20em"
     },
     textFieldArea: {
-        padding:"20px",
+        padding: "20px",
         ['@media (max-width:460px)']: {
-            padding:"0px",
+            padding: "0px",
             marginTop: "10px",
             height: "50px"
             // marginBottom:"0px"
@@ -40,7 +42,7 @@ const useStyles = makeStyles(() => ({
 
     },
     submitBtn: {
-        backgroundColor: "yellow",
+        backgroundColor: "#fea907",
         borderRadius: "20px",
         width: "7em",
         height: "3.7em",
@@ -48,8 +50,12 @@ const useStyles = makeStyles(() => ({
         right: "50px",
         ['@media (max-width:507px)']: {
             right: "0px",
-            bottom:"55px",
+            bottom: "55px",
             left: "200px",
+        },
+        "&:hover,&:focus": {
+            color: "orange",
+            background: "black"
         }
     },
     icon: {

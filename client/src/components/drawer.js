@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import MenuIcon from "@material-ui/icons/Menu";
 import logoMini from "../images/logo-mini.jpeg";
+import texturedImage from "../images/textured_3_edit.png"
 
 import {
     Drawer,
@@ -20,8 +21,11 @@ import { Link } from "react-router-dom";
 const useStyles = makeStyles(() => ({
     link: {
         textDecoration: "none",
-        color: "red",
+        color: "orange",
         fontSize: "20px",
+        "&:focus,&:hover":{
+            color:"orange"
+        }
     },
     icon: {
         color: "white"
@@ -31,9 +35,23 @@ const useStyles = makeStyles(() => ({
         cursor: "pointer",
     },
     logoText: {
+        color: "#fea905",
+        fontSize: "20px",
+        position: "relative",
+        zIndex: 100,
+        marginLeft: "20px",
+        fontFamily: 'Merriweather',
         textDecoration: "none",
-        color: "white",
-        fontSize: "20px"
+    },
+    navbar: {
+        background: `url(${texturedImage})`,
+        position: "fixed",
+    },
+    paper: {
+        background: `url(${texturedImage})`,
+    },
+    list:{
+        // background: "#0411af",
     }
 }));
 
@@ -43,17 +61,19 @@ const DrawerMenu = () => {
     return (
         <div>
             <CssBaseline />
-            <AppBar position="relative">
+            <AppBar elevation={0} className={classes.navbar}>
                 <Toolbar >
                     <Link to="/" className={classes.logoText}>
-                        <img height="55px" src={logoMini}/>
+                        <Typography style={{ marginLeft: 0, fontSize: "20px", fontWeight: "700" }} className={classes.logoText}>Expert Educational</Typography>
+                        <Typography style={{ marginLeft: 0, fontSize: "32px", fontWeight: "300" }} className={classes.logoText}>Consultancy</Typography>
                     </Link>
                     <Drawer
                         anchor="right"
                         open={openDrawer}
                         onClose={() => setOpenDrawer(false)}
+                        classes={{paper:classes.paper}}
                     >
-                        <List>
+                        <List className={classes.list}>
                             <ListItem onClick={() => setOpenDrawer(false)}>
                                 <ListItemText>
                                     <Link className={classes.link} to="/about">About</Link>
@@ -72,7 +92,7 @@ const DrawerMenu = () => {
                         </List>
                     </Drawer>
                     <Grid item>
-                        <IconButton style={{position:"absolute",right:0,top:0}} onClick={() => setOpenDrawer(!openDrawer)}>
+                        <IconButton style={{ position: "absolute", right: 5, top: 10,color:"orange" }} onClick={() => setOpenDrawer(!openDrawer)}>
                             <MenuIcon />
                         </IconButton>
                     </Grid>

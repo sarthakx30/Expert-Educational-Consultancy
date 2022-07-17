@@ -1,55 +1,61 @@
 import React from 'react';
-import { Paper,Container, Typography, makeStyles, Button } from "@material-ui/core";
+import { Paper, Container, Typography, makeStyles, Button } from "@material-ui/core";
 import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import Box from '@mui/material/Box';
 
-import image1 from "../images/carousel-images/carousel-image-1.jpg";
-import image2 from "../images/carousel-images/carousel-image-2.jpeg";
+import image1 from "../images/testimonials/priyanshi_mathur.jpeg";
+import image2 from "../images/testimonials/mudit_jain.jpeg";
 import image3 from '../images/carousel-images/carousel-image-3.jpg';
-import { FlashOnTwoTone } from '@material-ui/icons';
+import texturedImage from "../images/textured_3.png";
 
 
 
 const useStyles = makeStyles((theme) => ({
     testimonialsBtn: {
         margin: "20px",
-        backgroundColor: "yellow",
-        color: "hotpink",
+        backgroundColor: "white",
+        color: "black",
         borderRadius: "10px",
+        transition: "all 0.5s ease",
+        border: "2px solid orange",
         "&:hover,&:focus": {
-            color: "yellow",
-            backgroundColor: "hotpink"
+            boxShadow: "0px 0px 6px 2.5px #fea905 ,1px 1px 1px 0px #ECDE65,1px 1px 1px 0px #ECDE65",
+            color: "orange",
+            background: "linear-gradient(to right bottom,black,#0411af)"
         }
     },
     image: {
-        // marginLeft:"50px",
-        // margin:"0 auto",
+
         width: "100px",
         height: "100px",
         borderRadius: "50%",
         objectFit: "cover",
         opacity: 1,
-        display:"inline-block"
+        display: "inline-block"
     },
     item: {
         textAlign: "center",
-        // background: "#F4F85F"
-        // display:"flex",
-        // flexDirection: "column",
+        opacity: 1,
+        padding: "20px",
     },
-    caption:{
+    caption: {
         position: "relative",
         left: "0px",
         top: "10px",
+        padding: "0px 70px 15px 70px"
+
     },
-    paper:{
+    paper: {
         marginTop: "20px",
-        padding: "5px",
-        backgroundColor: "#faecce",
-        boxShadow: "2px 2px 5px 1px black ,1px 1px 1px 0px #black,1px 1px 2px 0px #eceef4 ",
+        background: `url(${texturedImage})`,
+        boxShadow: "2px 2px 5px 1px blue ,1px 1px 1px 0px blue,1px 1px 2px 0px #eceef4 ",
+    },
+    text: {
+        fontFamily: "Nunito Sans",
+        fontWeight: "600"
     }
 }));
 
@@ -59,35 +65,39 @@ const Testimonials = () => {
         <div>
             <Divider
                 sx={{
+                    marginTop: "20px",
+                    marginBottom: "40px",
                     "&::before, &::after": {
-                        borderTop: "2px solid hotpink",
+                        borderTop: "2px solid #fea905",
                     },
                 }}
                 className={classes.divider}>
                 <Chip
                     sx={{
-                        background: "linear-gradient(to right bottom,pink,hotpink)"
+                        background: "linear-gradient(to right bottom,orange,#fea905)"
                     }}
                     label="Our Testimonials"
                     className={classes.chip}
                 />
             </Divider>
             <Paper elevation={5} className={classes.paper}>
-                <Carousel indicators={false} variant="dark">
+                <Carousel indicators={false}>
                     <Carousel.Item className={classes.item}>
                         <img
                             className={classes.image}
                             src={image1}
                             alt="First slide"
                         />
-                        
+
                         <Carousel.Caption className={classes.caption}>
-                            <Typography variant="h4" gutterBottom style={{color:"black", }}>
-                                Sarthak Kharabanda
+                            <Typography className={classes.text} variant="h4" gutterBottom style={{ color: "orange", }}>
+                                Priyanshi Mathur
                             </Typography>
-                            <Typography variant="body2" gutterBottom style={{color:"black", }}>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-                                blanditiis tenetur
+                            <Typography className={classes.text} variant="body2" gutterBottom style={{ color: "orange", }}>
+                                Expert Educational Consultancy.... The best place to get counselling and guidance. Mr. Rana sir provides the best guidance for admission procedure. My daughter got a seat from NEET UG counselling. Staff is very professional and helpful...
+                                I highly recommended expert education consultancy to all the NEET aspirants 🙏
+                                <br/>
+                                <br/>
                             </Typography>
                         </Carousel.Caption>
                     </Carousel.Item>
@@ -99,28 +109,18 @@ const Testimonials = () => {
                         />
 
                         <Carousel.Caption className={classes.caption}>
-                            <Typography variant="h4" gutterBottom style={{color:"black", }}>
-                                Archit Agarwal
+                            <Typography className={classes.text} variant="h4" gutterBottom style={{ color: "orange", }}>
+                                Mudit Jain
                             </Typography>
-                            <Typography variant="body2" gutterBottom style={{color:"black", }}>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-                                blanditiis tenetur
-                            </Typography>                </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item className={classes.item}>
-                        <img
-                            className={classes.image}
-                            src={image3}
-                            alt="Third slide"
-                        />
-
-                        <Carousel.Caption className={classes.caption}>
-                            <Typography variant="h4" gutterBottom style={{color:"black", }}>
-                                Consultant
-                            </Typography>
-                            <Typography variant="body2" gutterBottom style={{color:"black", }}>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-                                blanditiis tenetur
+                            <Typography className={classes.text} variant="body2" gutterBottom style={{ color: "orange", }}>
+                                Expert Educational Consultancy has been best and trusted support to a NEET Aspirant
+                                They have provided all important updates timely regarding -
+                                Fee structure
+                                Bond status
+                                College Review
+                                Best thing is that they give personalised and customised guidance according to ur NEET score and give trustworthy advice.
+                                It's been worth remembering journey with Expert team
+                                Thank you for your guidance and support !!!!--
                             </Typography>
                         </Carousel.Caption>
                     </Carousel.Item>
@@ -128,7 +128,7 @@ const Testimonials = () => {
             </Paper>
             <Typography align="center">
                 <br />
-                <Button className={classes.testimonialsBtn} href="/reviews" variant="contained">Let them tell you</Button>
+                <Button className={classes.testimonialsBtn} href="/reviews" variant="contained">Some Frequently Asked Questions</Button>
             </Typography>
         </div>
     )

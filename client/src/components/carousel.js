@@ -10,34 +10,37 @@ import image3 from '../images/carousel-images/carousel-image-3.jpg';
 const useStyles = makeStyles(() => ({
     image: {
         width: "100%",
-        height: "400px",
+        height: "350px",
         objectFit: "cover",
-        opacity: 0.5
+        opacity: 0.4
     },
     item: {
         background: "#090f23",
-        height: "400px",
-    },
-    carousel:{
+        height: "350px",
         position: "relative",
-        bottom:"180px",
-        zIndez:0,
+        top: "0px"
+    },
+    carousel: {
+        position: "relative",
+        bottom: "180px",
+        zIndez: 0,
         width: "100%",
     },
-    caption:{
+    caption: {
         position: "relative",
         // bottom:"200px",
         // right:"100px"
-        bottom:"220px",
-        left:0
+        bottom: "215px",
+        left: 0,
+        fontFamily: "Nunito Sans",
+        fontWeight: "600"
     }
 }));
 
 const CarouselComponent = () => {
     const classes = useStyles();
     return (
-        <Carousel className={classes.carousel}>
-        {/* <Typography>Helllo</Typography> */}
+        <Carousel indicators={false} className={classes.carousel}>
             <Carousel.Item className={classes.item}>
                 <img
                     className={classes.image}
@@ -45,12 +48,18 @@ const CarouselComponent = () => {
                     alt="First slide"
                 />
                 <Carousel.Caption className={classes.caption}>
-                    <Typography variant="h4" gutterBottom style={{ textShadow: "#000 1px 0 10px" }}>
-                        h4. Heading
+                    <Typography variant="h4" gutterBottom style={{
+                        textShadow: "#000 1px 0 10px",
+                        fontFamily: "Nunito Sans",
+                        fontWeight: "600"
+                    }}>
+                        Get the best career guidance
                     </Typography>
-                    <Typography variant="subtitle2" gutterBottom style={{ textShadow: "#000 1px 0 10px" }}>
-                        subtitle2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-                        blanditiis tenetur
+                    <Typography variant="subtitle2" gutterBottom style={{
+                        textShadow: "#000 1px 0 10px", fontFamily: "Nunito Sans",
+                        fontWeight: "600"
+                    }}>
+
                     </Typography>
                 </Carousel.Caption>
             </Carousel.Item>
@@ -62,13 +71,20 @@ const CarouselComponent = () => {
                 />
 
                 <Carousel.Caption className={classes.caption}>
-                    <Typography variant="h4" gutterBottom style={{ textShadow: "#000 1px 0 10px" }}>
-                        h4. Heading
+                    <Typography variant="h4" gutterBottom style={{
+                        textShadow: "#000 1px 0 10px", fontFamily: "Nunito Sans",
+                        fontWeight: "600"
+                    }}>
+                        NEET UG
                     </Typography>
-                    <Typography variant="subtitle2" gutterBottom style={{ textShadow: "#000 1px 0 10px" }}>
-                        subtitle2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-                        blanditiis tenetur
-                    </Typography>                </Carousel.Caption>
+                    <Typography variant="subtitle2" gutterBottom style={{
+                        textShadow: "#000 1px 0 10px", fontFamily: "Nunito Sans",
+                        fontWeight: "600"
+                    }}>
+                        India's Most Trusted Medical Admission Counsellors
+                        with >95% success rate in MBBS admissions
+                    </Typography>
+                </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item className={classes.item}>
                 <img
@@ -78,12 +94,18 @@ const CarouselComponent = () => {
                 />
 
                 <Carousel.Caption className={classes.caption}>
-                    <Typography variant="h4" gutterBottom style={{ textShadow: "#000 1px 0 10px" }}>
-                        h4. Heading
+                    <Typography variant="h4" gutterBottom style={{
+                        textShadow: "#000 1px 0 10px", fontFamily: "Nunito Sans",
+                        fontWeight: "600"
+                    }}>
+                        NEET PG
                     </Typography>
-                    <Typography variant="subtitle2" gutterBottom style={{ textShadow: "#000 1px 0 10px" }}>
-                        subtitle2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-                        blanditiis tenetur
+                    <Typography variant="subtitle2" gutterBottom style={{
+                        textShadow: "#000 1px 0 10px", fontFamily: "Nunito Sans",
+                        fontWeight: "600"
+                    }}>
+                        India's Most Trusted Medical Admission Counsellors
+                        with >95% success rate in MD/MS admissions
                     </Typography>
                 </Carousel.Caption>
             </Carousel.Item>
