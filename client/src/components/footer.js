@@ -81,12 +81,12 @@ const Footer = () => {
                         <Grid container spacing={2} justify="space-between">
                             <Grid item md={12} xs={4} >
                                 <Button size="small" backgroundColor="white" color="white" style={{ backgroundColor: "#444548", color: "white" }}>
-                                    <Mail />expertec303@yahoo.co.in
+                                    <Mail />expertec104@gmail.com
                                 </Button>
                             </Grid>
                             <Grid item md={12} xs={4}>
                                 <Button size="small" backgroundColor="white" color="white" style={{ backgroundColor: "#444548", color: "white" }}>
-                                    <Phone />9313555011
+                                    <Phone />9313555010
                                 </Button>
                             </Grid>
                         </Grid>
