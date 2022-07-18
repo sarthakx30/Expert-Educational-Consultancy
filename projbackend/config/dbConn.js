@@ -1,5 +1,5 @@
 //Establishsing databse connection
-
+require("dotenv").config();
 const mongoose = require("mongoose");
 
 const dbConn = () => {
