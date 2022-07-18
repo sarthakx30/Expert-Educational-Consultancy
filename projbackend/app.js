@@ -10,6 +10,12 @@ app.use(cookieParser());
 //cors middleware
 app.use(cors());
 
+//For Docs
+const swaggerUi = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDocument = YAML.load("./swagger.yaml");
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 //fileUpload middleware
 app.use(
   fileUpload({
