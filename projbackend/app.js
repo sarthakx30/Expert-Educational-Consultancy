@@ -2,9 +2,13 @@ const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
+var cors = require("cors");
 
 //cookie parser middlware
 app.use(cookieParser());
+
+//cors middleware
+app.use(cors());
 
 //fileUpload middleware
 app.use(
