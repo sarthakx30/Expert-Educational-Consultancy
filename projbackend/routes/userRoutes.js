@@ -21,8 +21,8 @@ router
   .route("/youraccount")
   .get(isLoggedIn, yourAccount)
   .put(isLoggedIn, updateAccount);
-router.route("/updatepassword").post(isLoggedIn, updatePassword);
-router.route("/forgotpassword").post(isLoggedIn, forgotPassword);
+router.route("/password/update").post(isLoggedIn, updatePassword);
+router.route("/password/forgot").post(isLoggedIn, forgotPassword);
 router.route("/password/reset/:token").post(resetPassword);
 
 module.exports = router;
