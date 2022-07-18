@@ -27,21 +27,29 @@ const Register = ({ navbar, setNavbar }) => {
     useEffect(() => {
         setNavbar(true);
     }, [])
-
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        password: "",
+        city: "",
+        course: ""
+    });
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [course, setCourse] = useState(null);
+    const [city, setCity] = useState("");
     const [success, setSuccess] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(!name||!email||!password||!course){
+        if (!name || !email || !password || !course) {
             return alert("One or more fields missing");
         }
+        setFormData(name, email, password, city, course);
         try {
             const response = await axios.post(REGISTERATION_URL,
-                JSON.stringify({ name, password }),
+                JSON.stringify({ formData }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -107,18 +115,20 @@ const Register = ({ navbar, setNavbar }) => {
                     <TextField value={name} onChange={(e) => setName(e.target.value)} style={{ margin: '5px' }} id="outlined-basic" label="Name" variant="outlined" />
                     <TextField value={email} onChange={(e) => setEmail(e.target.value)} style={{ margin: '5px' }} id="outlined-basic" label="Email" variant="outlined" />
                     <TextField value={password} onChange={(e) => setPassword(e.target.value)} style={{ margin: '5px', marginBottom: '20px' }} id="outlined-basic" label="Password" variant="outlined" />
+                    <TextField value={city} onChange={(e) => setCity(e.target.value)} style={{ margin: '5px', marginBottom: '20px' }} id="outlined-basic" label="City" variant="outlined" />
                     <TextField
                         select
                         label="Course"
                         value={course}
                         onChange={(e) => setCourse(e.target.value)}
                     >
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                        <MenuItem value={40}>Forty</MenuItem>
-                        <MenuItem value={50}>Fifty</MenuItem>
-                        <MenuItem value={60}>Sixty</MenuItem>
+                        <MenuItem value="MBBS">MBBS</MenuItem>
+                        <MenuItem value="BAMS">BAMS</MenuItem>
+                        <MenuItem value="BHMS">BHMS</MenuItem>
+                        <MenuItem value="BDS">BDS</MenuItem>
+                        <MenuItem value="MD/MS">MD/MDS</MenuItem>
+                        <MenuItem value="DNB">DNB</MenuItem>
+                        <MenuItem value="FCPS/CPS">FCPS/CPS</MenuItem>
                     </TextField>
                     <Button type="submit" color="primary" style={{ margin: '5px' }} variant="contained">Sign UP</Button>
                 </form>
