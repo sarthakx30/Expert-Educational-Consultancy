@@ -1,7 +1,7 @@
 {
   "name": "client",
   "homepage": "http://expertedu.com",
-  "proxy":"http://localhost:4679",
+  "proxy":"https://expert-educational-consultancy.herokuapp.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
