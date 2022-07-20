@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         position: "relative",
         zIndex: 100,
         marginLeft: "20px",
-        fontFamily: 'Merriweather'
+        fontFamily: 'Revue'
     },
     navbar: {
         background: "transparent",
@@ -85,8 +85,8 @@ const Navbar = ({navbar,setNavbar}) => {
             {isMobile ? (<DrawerMenu />) :
                 (<>
                     {window.location.pathname==="/"?(<>
-                        <Typography style={{ marginTop: "10px", fontSize: "25px", fontWeight: "700" }} className={classes.logoText}>Expert Educational</Typography>
-                        <Typography style={{ fontSize: "40px", fontWeight: "300" }} className={classes.logoText}>Consultancy</Typography>
+                        <Typography style={{ marginTop: "10px", fontSize: "25px" }} className={classes.logoText}>Expert Educational</Typography>
+                        <Typography style={{ fontSize: "40px" }} className={classes.logoText}>Consultancy</Typography>
                     </>):(<></>)
                     }
                     {/* <img src={logo} width="100%" style={{padding:"10px",backgroundColor:"#faecce"}}/> */}

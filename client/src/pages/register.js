@@ -56,15 +56,9 @@ const Register = ({ navbar, setNavbar }) => {
                 }
             )
             console.log(JSON.stringify(response));
-            const accessToken = response.accessToken
+            // const accessToken = response.accessToken
         } catch (error) {
-            <Grow in timeout={500}>
-                <Stack sx={{ width: '100%' }}>
-                    <Alert>
-                        {error.message}
-                    </Alert>
-                </Stack>
-            </Grow>
+            alert(error.message);
         }
         setSuccess(true);
         console.log(name, email, password, course);

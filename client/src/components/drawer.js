@@ -40,7 +40,7 @@ const useStyles = makeStyles(() => ({
         position: "relative",
         zIndex: 100,
         marginLeft: "20px",
-        fontFamily: 'Merriweather',
+        fontFamily: 'Revue',
         textDecoration: "none",
     },
     navbar: {

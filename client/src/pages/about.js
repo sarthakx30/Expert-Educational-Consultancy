@@ -9,6 +9,8 @@ const useStyles = makeStyles(() => ({
     text: {
         fontFamily: "Nunito Sans",
         fontWeight: "600",
+        textAlign: "justify",
+        textJustify: "inter-word",
     }
 }));
 
@@ -58,7 +60,7 @@ const About = ({ navbar, setNavbar }) => {
     };
     return (
         <Container style={{ margin: "80px auto" }}>
-            <Typography className={classes.text} align="center" variant="h2" style={{ color: "orange", textShadow: "1px 1px 3px #0411af", marginBottom: "10px" }}>About Us</Typography>
+            <Typography align="center" variant="h2" style={{ color: "orange", textShadow: "1px 1px 3px #0411af", marginBottom: "10px",fontFamily: "Nunito Sans",fontWeight: "600", }}>About Us</Typography>
             <Tabs centered value={value} onChange={handleChange} aria-label="basic tabs example">
                 <Tab label="About UG" {...a11yProps(0)} />
                 <Tab label="About PG" {...a11yProps(1)} />
