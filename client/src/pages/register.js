@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import axios from '../api/axios';
 
@@ -24,75 +25,51 @@ const useStyles = makeStyles(() => ({
 
 const Register = ({ navbar, setNavbar }) => {
     const classes = useStyles();
+
     useEffect(() => {
         setNavbar(true);
     }, [])
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        password: "",
-        city: "",
-        course: ""
-    });
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [course, setCourse] = useState(null);
     const [city, setCity] = useState("");
+
+    const [failiure, setFailiure] = useState(false);
+    const [failiureMessage, setFailiureMessage] = useState("");
     const [success, setSuccess] = useState(false);
+    const [responseRecieved, setResponseRecieved] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setResponseRecieved(true);
+        setSuccess(false);
+        setFailiure(false);
         if (!name || !email || !password || !course) {
             return alert("One or more fields missing");
         }
-        setFormData(name, email, password, city, course);
         try {
+
             const response = await axios.post(REGISTERATION_URL,
-                JSON.stringify( {name,email,password,course,city}),
+                JSON.stringify({ name, email, password, course, city }),
                 {
                     headers: { 'Content-Type': 'application/json' },
-                    // withCredentials: true
-                    // body: JSON.stringify( formData )
                 }
             )
             console.log(JSON.stringify(response));
-<<<<<<< HEAD
             // const accessToken = response.accessToken
-        } catch (error) {
-            alert(error.message);
-=======
-            console.log("Hello there");
-            
-            const accessToken = response.accessToken
+            setResponseRecieved(false);
             setSuccess(true);
         } catch (error) {
-            // <Grow in timeout={500}>
-            //     <Stack sx={{ width: '100%' }}>
-            //         <Alert>
-            //             {error.message}
-            //         </Alert>
-            //     </Stack>
-            // </Grow>
             console.log(error);
-            console.log(error.response.data.msg)
-            alert(error.response.data.msg)
->>>>>>> 7769fa1867c0c076809229667bb2e7e3332c533f
+            console.log(error.response.data.msg);
+            setFailiureMessage(error.response.data.msg);
+            // alert(error.response.data.msg);
+            setFailiure(true);
+            setResponseRecieved(false);
         }
         console.log(name, email, password, course);
-
-        // <Stack sx={{ width: '100%' }} spacing={2}>
-        //     <MuiAlert
-        //         action={
-        //             <Button color="inherit" size="small">
-        //                 UNDO
-        //             </Button>
-        //         }
-        //     >
-        //         This is a success alert — check it out!
-        //     </MuiAlert>
-        // </Stack>
-        // alert("works")
 
     }
 
@@ -103,21 +80,39 @@ const Register = ({ navbar, setNavbar }) => {
             alignItems="center"
             minHeight="100vh"
             style={{ margin: '100px 50px' }}
-        >   {success ? (
-            <Grow in timeout={500}>
-                <Stack sx={{ width: '100%' }}>
-                    <Alert
-                        action={
-                            <Button href="/" color="inherit" size="small">
-                                Home
-                            </Button>
-                        }
-                    >
-                        Registeration Successful. Our team will soon reach out to you. Click on the button to go back to home page
-                    </Alert>
-                </Stack>
-            </Grow>
-        ) : (<></>)
+        >
+            {failiure ? (
+                <Grow in timeout={500}>
+                    <Stack sx={{ width: '100%' }}>
+                        <Alert
+                            severity="error"
+                            action={
+                                <Button href="/" color="inherit" size="small">
+                                    Home
+                                </Button>
+                            }
+                        >
+                            {failiureMessage}
+                        </Alert>
+                    </Stack>
+                </Grow>
+            ) : (<></>)
+            }
+            {success ? (
+                <Grow in timeout={500}>
+                    <Stack sx={{ width: '100%' }}>
+                        <Alert
+                            action={
+                                <Button href="/" color="inherit" size="small">
+                                    Home
+                                </Button>
+                            }
+                        >
+                            Registeration Successful. Our team will soon reach out to you. Click on the button to go back to home page
+                        </Alert>
+                    </Stack>
+                </Grow>
+            ) : (<></>)
             }
             <Paper elevation={3} style={{ padding: '5px' }}>
                 <Typography style={{ margin: '20px' }} variant="h3" align="center">
@@ -126,7 +121,7 @@ const Register = ({ navbar, setNavbar }) => {
                 <form onSubmit={handleSubmit} className={classes.form}>
                     <TextField value={name} onChange={(e) => setName(e.target.value)} style={{ margin: '5px' }} id="outlined-basic" label="Name" variant="outlined" />
                     <TextField value={email} onChange={(e) => setEmail(e.target.value)} style={{ margin: '5px' }} id="outlined-basic" label="Email" variant="outlined" />
-                    <TextField value={password} onChange={(e) => setPassword(e.target.value)} style={{ margin: '5px', marginBottom: '20px' }} id="outlined-basic" label="Password" variant="outlined" />
+                    <TextField type="password" value={password} onChange={(e) => setPassword(e.target.value)} style={{ margin: '5px', marginBottom: '20px' }} id="outlined-basic" label="Password" variant="outlined" />
                     <TextField value={city} onChange={(e) => setCity(e.target.value)} style={{ margin: '5px', marginBottom: '20px' }} id="outlined-basic" label="City" variant="outlined" />
                     <TextField
                         select
@@ -142,7 +137,12 @@ const Register = ({ navbar, setNavbar }) => {
                         <MenuItem value="DNB">DNB</MenuItem>
                         <MenuItem value="FCPS/CPS">FCPS/CPS</MenuItem>
                     </TextField>
-                    <Button type="submit" color="primary" style={{ margin: '5px' }} variant="contained">Sign UP</Button>
+                    {responseRecieved ?
+                        <Button type="submit" color="primary" style={{ margin: '5px' }} variant="contained"><CircularProgress style={{ color: "white" }} /></Button>
+                        :
+                        <Button type="submit" color="primary" style={{ margin: '5px' }} variant="contained">Sign UP</Button>
+                    }
+
                 </form>
             </Paper>
         </Box>
