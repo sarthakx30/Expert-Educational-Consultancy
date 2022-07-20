@@ -49,24 +49,30 @@ const Register = ({ navbar, setNavbar }) => {
         setFormData(name, email, password, city, course);
         try {
             const response = await axios.post(REGISTERATION_URL,
-                JSON.stringify({ formData }),
+                JSON.stringify( {name,email,password,course,city}),
                 {
                     headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
+                    // withCredentials: true
+                    // body: JSON.stringify( formData )
                 }
             )
             console.log(JSON.stringify(response));
+            console.log("Hello there");
+            
             const accessToken = response.accessToken
+            setSuccess(true);
         } catch (error) {
-            <Grow in timeout={500}>
-                <Stack sx={{ width: '100%' }}>
-                    <Alert>
-                        {error.message}
-                    </Alert>
-                </Stack>
-            </Grow>
+            // <Grow in timeout={500}>
+            //     <Stack sx={{ width: '100%' }}>
+            //         <Alert>
+            //             {error.message}
+            //         </Alert>
+            //     </Stack>
+            // </Grow>
+            console.log(error);
+            console.log(error.response.data.msg)
+            alert(error.response.data.msg)
         }
-        setSuccess(true);
         console.log(name, email, password, course);
 
         // <Stack sx={{ width: '100%' }} spacing={2}>

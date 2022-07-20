@@ -21,9 +21,9 @@ servers:
           - http
           - https
       host:
-        default: ecommstoreapp.herokuapp.com
+        default: expert-educational-consultancy.herokuapp.com
         enum:
-         - ecommstoreapp.herokuapp.com
+         - expert-educational-consultancy.herokuapp.com
          - localhost:4679     
 
 components:
