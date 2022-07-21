@@ -62,8 +62,8 @@ const Register = ({ navbar, setNavbar }) => {
             setResponseRecieved(false);
             setSuccess(true);
         } catch (error) {
-            console.log(error);
-            console.log(error.response.data.msg);
+            // console.log(error);
+            // console.log(error.response.data.msg);
             setFailiureMessage(error.response.data.msg);
             // alert(error.response.data.msg);
             setFailiure(true);

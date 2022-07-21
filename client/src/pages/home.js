@@ -78,7 +78,7 @@ const Home = () => {
                             Expert Educational Consultancy was conceptualised and incorporated in 1995 with a permanent office in Delhi, in response to the growing concerns in MBBS/MD / MS / DNB / Diploma / FCPS / CPS  admissions in India about fraud, misguidance and cheating by several unscrupulous touts masquerading as admission counsellors.
                             To combat this growing issue and offer complete transparency, Expert Educational Consultancy uses Artificial Intelligence and Data Analytics to help students.
                         </Typography>
-                        <Paper elevation={3} style={!isMobile ? { minWidth: "200px", height: "200px", margin: "10px 0px 0px 20px" } : { height: "100px", margin: "30px 0px 30px 0px" }}>
+                        <Paper elevation={3} style={!isMobile ? { width:"100%", height: "100%", margin: "10px 0px 0px 20px",padding:"20px" } : { height: "100px", margin: "30px 0px 30px 0px" }}>
                             <Typography align="center" style={isMobile ? {
                                 fontFamily: "Nunito Sans",
                                 fontWeight: "600",
@@ -87,8 +87,6 @@ const Home = () => {
                                 fontFamily: "Nunito Sans",
                                 fontWeight: "600",
                                 fontSize: "20px",
-                                position: "relative",
-                                top: "50px"
                             }} variant="body1">
                                 An Experience of
                                 <br />

@@ -10,7 +10,7 @@ import image1 from "../images/testimonials/priyanshi_mathur.jpeg";
 import image2 from "../images/testimonials/mudit_jain.jpeg";
 import image3 from '../images/carousel-images/carousel-image-3.jpg';
 import texturedImage from "../images/textured_3.png";
-
+import { testimonials } from "../data/testimonials-data";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,14 +39,13 @@ const useStyles = makeStyles((theme) => ({
     item: {
         textAlign: "center",
         opacity: 1,
-        padding: "20px",
+        padding: "20px 0px 20px 0px",
     },
     caption: {
         position: "relative",
         left: "0px",
         top: "10px",
-        padding: "0px 70px 15px 70px"
-
+        padding: "0px 40px 0px 40px",
     },
     paper: {
         marginTop: "20px",
@@ -82,55 +81,31 @@ const Testimonials = () => {
             </Divider>
             <Paper elevation={5} className={classes.paper}>
                 <Carousel indicators={false}>
-                    <Carousel.Item className={classes.item}>
-                        <img
-                            className={classes.image}
-                            src={image1}
-                            alt="First slide"
-                        />
-
-                        <Carousel.Caption className={classes.caption}>
-                            <Typography className={classes.text} variant="h4" gutterBottom style={{ color: "orange", }}>
-                                Priyanshi Mathur
-                            </Typography>
-                            <Typography className={classes.text} variant="body2" gutterBottom style={{ color: "orange", }}>
-                                Expert Educational Consultancy.... The best place to get counselling and guidance. Mr. Rana sir provides the best guidance for admission procedure. My daughter got a seat from NEET UG counselling. Staff is very professional and helpful...
-                                I highly recommended expert education consultancy to all the NEET aspirants 🙏
-                                <br/>
-                                <br/>
-                            </Typography>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item className={classes.item}>
-                        <img
-                            className={classes.image}
-                            src={image2}
-                            alt="Second slide"
-                        />
-
-                        <Carousel.Caption className={classes.caption}>
-                            <Typography className={classes.text} variant="h4" gutterBottom style={{ color: "orange", }}>
-                                Mudit Jain
-                            </Typography>
-                            <Typography className={classes.text} variant="body2" gutterBottom style={{ color: "orange", }}>
-                                Expert Educational Consultancy has been best and trusted support to a NEET Aspirant
-                                They have provided all important updates timely regarding -
-                                Fee structure
-                                Bond status
-                                College Review
-                                Best thing is that they give personalised and customised guidance according to ur NEET score and give trustworthy advice.
-                                It's been worth remembering journey with Expert team
-                                Thank you for your guidance and support !!!!--
-                            </Typography>
-                        </Carousel.Caption>
-                    </Carousel.Item>
+                    {testimonials.map((testimonial, index) => (
+                        <Carousel.Item key={index} className={classes.item}>
+                            <img
+                                className={classes.image}
+                                src={testimonial.image}
+                                alt="Second slide"
+                            />
+                            <Carousel.Caption className={classes.caption}>
+                                <Typography className={classes.text} variant="h4" gutterBottom style={{ color: "orange", }}>
+                                    {testimonial.name}
+                                </Typography>
+                                <Typography className={classes.text} variant="body2" gutterBottom style={{ color: "orange", }}>
+                                    {testimonial.content}
+                                </Typography>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                    ))
+                    }
                 </Carousel>
             </Paper>
             <Typography align="center">
                 <br />
                 <Button className={classes.testimonialsBtn} href="/reviews" variant="contained">Some Frequently Asked Questions</Button>
             </Typography>
-        </div>
+        </div >
     )
 }
 
