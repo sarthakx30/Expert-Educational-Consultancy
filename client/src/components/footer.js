@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextField, Button, Grid, Box, Typography, makeStyles, Paper, Container } from '@material-ui/core';
-import { Instagram, Facebook, Mail, Phone } from '@material-ui/icons';
+import { Instagram, Facebook, Mail, Phone,Telegram} from '@material-ui/icons';
 
 const useStyles = makeStyles(() => ({
     text: {
@@ -60,6 +60,7 @@ const useStyles = makeStyles(() => ({
     },
     icon: {
         // margin: "20px",
+        color:"orange"
     },
 
 }));
@@ -110,10 +111,9 @@ const Footer = () => {
                 <Box
                     className={classes.icons}
                 >
-                    <Instagram className={classes.icon} />
-                    <Facebook className={classes.icon} />
-                    <Mail className={classes.icon} />
-                    <Phone className={classes.icon} />
+                    <a target="_blank" href="https://www.instagram.com/experteducationalconsultancy/?hl=en"><Instagram className={classes.icon} /></a>
+                    <a target="_blank" href="https://www.facebook.com/ExpertEducatoinalConsultancy"><Facebook className={classes.icon} /></a>
+                    <a target="_blank" href="https://t.me/ExpertNEETUG"><Telegram className={classes.icon} /></a>
                 </Box>
             </Paper>
         </Box>
