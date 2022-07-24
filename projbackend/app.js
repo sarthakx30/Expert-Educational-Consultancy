@@ -18,9 +18,9 @@ const swaggerDocument = YAML.load("./swagger.yaml");
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //For getting data from body
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 //fileUpload middleware
 app.use(
@@ -37,9 +37,11 @@ app.use(express.urlencoded({ extended: true }));
 //Importing routes
 const home = require("./routes/homeRoutes");
 const user = require("./routes/userRoutes");
+const college = require("./routes/collegeRoutes");
 //Using routes
 app.use("/api/v1", home);
 app.use("/api/v1", user);
+app.use("/api/v1", college);
 
 //This is the last middleware. whenever the next keyword is called with an error then this is where it will come for processing.
 app.use((err, req, res, next) => {
