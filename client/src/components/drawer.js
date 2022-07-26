@@ -89,6 +89,11 @@ const DrawerMenu = () => {
                                     <Link className={classes.link} to="/login">Login</Link>
                                 </ListItemText>
                             </ListItem>
+                            <ListItem onClick={() => setOpenDrawer(false)}>
+                                <ListItemText>
+                                    <Link className={classes.link} to="/colleges">Colleges</Link>
+                                </ListItemText>
+                            </ListItem>
                         </List>
                     </Drawer>
                     <Grid item>

@@ -108,6 +108,9 @@ const Navbar = ({navbar,setNavbar}) => {
                                 <Link to="/register" className={classes.link}>
                                     Register
                                 </Link>
+                                <Link to="/colleges" className={classes.link}>
+                                    Colleges
+                                </Link>
                             </div>
                         </Toolbar>
                     </AppBar>

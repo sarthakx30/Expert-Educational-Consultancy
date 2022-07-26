@@ -50,7 +50,6 @@ const Register = ({ navbar, setNavbar }) => {
             return alert("One or more fields missing");
         }
         try {
-
             const response = await axios.post(REGISTERATION_URL,
                 JSON.stringify({ name, email, password, course, city }),
                 {
@@ -75,7 +74,6 @@ const Register = ({ navbar, setNavbar }) => {
 
     return (
         <Box
-            display="flex"
             justifyContent="center"
             alignItems="center"
             minHeight="100vh"
