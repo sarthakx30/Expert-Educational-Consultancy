@@ -9,7 +9,10 @@ const cors = require("cors");
 app.use(cookieParser());
 
 //cors middleware
-app.use(cors());
+app.use(cors({
+  origin:"https://expertedu.com",
+  credentials:true
+}));
 
 //For Docs
 const swaggerUi = require("swagger-ui-express");
