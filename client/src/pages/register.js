@@ -47,6 +47,7 @@ const Register = ({ navbar, setNavbar }) => {
         setSuccess(false);
         setFailiure(false);
         if (!name || !email || !password || !course) {
+            setResponseRecieved(false);
             return alert("One or more fields missing");
         }
         try {
@@ -136,7 +137,7 @@ const Register = ({ navbar, setNavbar }) => {
                         <MenuItem value="FCPS/CPS">FCPS/CPS</MenuItem>
                     </TextField>
                     {responseRecieved ?
-                        <Button type="submit" color="primary" style={{ margin: '5px' }} variant="contained"><CircularProgress style={{ color: "white" }} /></Button>
+                        <Button color="primary" style={{ margin: '5px' }} variant="contained"><CircularProgress style={{ color: "white" }} /></Button>
                         :
                         <Button type="submit" color="primary" style={{ margin: '5px' }} variant="contained">Sign UP</Button>
                     }
