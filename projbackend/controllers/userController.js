@@ -43,6 +43,7 @@ exports.register = BigPromise(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
+    token,
     message: "user has been successfully created",
   });
   // } catch (error) {
@@ -76,7 +77,10 @@ exports.login = BigPromise(async (req, res, next) => {
   if (!verifyPassword) {
     return next(new customErr("Invalid credentials", 401));
   }
-  console.log(user);
+  // console.log(user);
+
+  user.password=undefined
+  // console.log(user);
 
   const token = await user.generateAuthToken();
 
@@ -88,6 +92,8 @@ exports.login = BigPromise(async (req, res, next) => {
   res.status(201).json({
     success: true,
     message: "user has been successfully logged in",
+    token,
+    user
   });
 });
 
