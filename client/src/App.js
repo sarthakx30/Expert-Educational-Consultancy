@@ -7,13 +7,13 @@ import Register from './pages/register';
 import Home from './pages/home';
 import Footer from './components/footer';
 import FAQ from './pages/faq';
+import Colleges from './pages/colleges';
 import {makeStyles} from '@material-ui/core';
 
 import './App.css';
 
 const useStyles = makeStyles(() => ({
   App :{
-      // height : '100vh',
       backgroundColor :"#FFFFFF",
       fontFamily:"Nunito Sans",
       fontWeight:"600"
@@ -34,6 +34,7 @@ function App() {
           <Route path="/login" element={<Login navbar={navbar} setNavbar={setNavbar} />} />
           <Route path="/register" element={<Register navbar={navbar} setNavbar={setNavbar} />} />
           <Route path="/reviews" element={<FAQ navbar={navbar} setNavbar={setNavbar} />}/>
+          <Route path="/colleges" element={<Colleges navbar={navbar} setNavbar={setNavbar} />}/>
         </Routes>
       </Router>
       <Footer/>
