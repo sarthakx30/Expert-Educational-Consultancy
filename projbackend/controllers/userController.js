@@ -38,6 +38,7 @@ exports.register = BigPromise(async (req, res, next) => {
 
   res.cookie("token", token, {
     expires: new Date(Date.now() + 60 * 60 * 1000), //cookie expires in 1 hr(60 mins)
+    sameSite : "none",
     httpOnly: true,
     secure: true,
     domain: "https://expertedu.com"
