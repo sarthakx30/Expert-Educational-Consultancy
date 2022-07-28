@@ -10,6 +10,7 @@ app.use(cookieParser());
 
 //cors middleware
 app.use(cors({
+  origin:"https://expertedu.com",
   credentials:true
 }));
 
