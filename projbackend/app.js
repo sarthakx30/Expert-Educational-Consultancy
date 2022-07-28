@@ -9,7 +9,9 @@ const cors = require("cors");
 app.use(cookieParser());
 
 //cors middleware
-app.use(cors());
+app.use(cors({
+  credentials:true
+}));
 
 //For Docs
 const swaggerUi = require("swagger-ui-express");

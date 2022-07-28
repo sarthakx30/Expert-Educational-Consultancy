@@ -55,6 +55,7 @@ const Register = ({ navbar, setNavbar }) => {
                 JSON.stringify({ name, email, password, course, city }),
                 {
                     headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
                 }
             )
             console.log(JSON.stringify(response));
