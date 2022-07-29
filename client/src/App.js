@@ -34,31 +34,16 @@ function App() {
   const classes = useStyles();
   const [user, setUser] = useState(null);
   const [cookieToken, setCookieToken] = useState(null);
+  // useEffect(() => {
+  //   if (Cookies.get('token')) setCookieToken(Cookies.get('token'));
+  // }, [cookieToken])
   // if(Cookies.get('token')){
   //   setCookieToken(Cookies.get('token'));
   // }
   useEffect(() => {
+    if (Cookies.get('token')) setCookieToken(Cookies.get('token'));
     if (localStorage.getItem('user')) {
       setUser(JSON.parse(localStorage.getItem('user')));
-    //   try {
-    //     var email = user.email;
-    //     var password = user.password;
-    //     axios.post(LOGIN_URL,
-    //       JSON.stringify({ email, password }),
-    //       {
-    //         headers: { 'Content-Type': 'application/json' },
-    //       }
-    //     ).then((res) => {
-    //       document.cookie = `token=${res.data.token}`;
-    //       setCookieToken(Cookies.get('token'))
-    //     })
-    //     .catch((error)=>{
-    //       console.error(error);
-    //     })
-    //   }
-    //   catch (error) {
-    //     console.log(error);
-    //   }
     }
   }, [])
   useEffect(() => {
