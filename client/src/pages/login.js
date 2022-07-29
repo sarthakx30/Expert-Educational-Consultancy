@@ -1,14 +1,12 @@
-import React, { useEffect, useState,useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
-import { Grow, Box, Grid, makeStyles, CssBaseline, Container, Paper, Typography } from '@material-ui/core';
-import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
-import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import CircularProgress from '@mui/material/CircularProgress';
+import { Grow, Box, makeStyles, Paper, Typography } from '@material-ui/core';
+import { Alert, Button, Stack, CircularProgress, TextField } from '@mui/material';
 
-import {UserContext} from "../UserContext"
+import { Link } from "react-router-dom";
+
+import { UserContext } from "../UserContext"
+import Cookies from 'js-cookie';
 
 import axios from '../api/axios';
 
@@ -41,7 +39,7 @@ const Login = ({ navbar, setNavbar }) => {
     const [success, setSuccess] = useState(false);
     const [responseRecieved, setResponseRecieved] = useState(false);
 
-    const {user,setUser}=useContext(UserContext);
+    const { user, setUser, cookieToken, setCookieToken } = useContext(UserContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -64,6 +62,12 @@ const Login = ({ navbar, setNavbar }) => {
             setResponseRecieved(false);
             setSuccess(true);
             setUser(response.data.user);
+            document.cookie = `token=${response.data.token}`;
+            setCookieToken(Cookies.get('token'));
+            // if(user)localStorage.setItem('user', JSON.stringify(user));
+            // console.log(user);
+            // localStorage.setItem('user',user);
+            // console.log(response.data.token);
             // console.log(user);
         } catch (error) {
             console.log(error);
@@ -90,8 +94,8 @@ const Login = ({ navbar, setNavbar }) => {
                         <Alert
                             severity="error"
                             action={
-                                <Button href="/" color="inherit" size="small">
-                                    Home
+                                <Button color="inherit" size="small">
+                                    <Link style={{textDecoration: "none",color:"red"}} to="/">Home</Link>
                                 </Button>
                             }
                         >
@@ -106,8 +110,8 @@ const Login = ({ navbar, setNavbar }) => {
                     <Stack sx={{ width: '100%' }}>
                         <Alert
                             action={
-                                <Button href="/" color="inherit" size="small">
-                                    Home
+                                <Button color="inherit" size="small">
+                                    <Link style={{textDecoration: "none",color:"limegreen"}} to="/">Home</Link>
                                 </Button>
                             }
                         >

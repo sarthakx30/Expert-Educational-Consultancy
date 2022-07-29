@@ -1,4 +1,5 @@
-import React, { useState, createContext } from 'react';
+import './App.css';
+import React, { useState, createContext, useEffect } from 'react';
 import Navbar from './components/navbar';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import About from './pages/about';
@@ -12,8 +13,12 @@ import Account from './pages/account';
 import Logout from './'
 import { makeStyles } from '@material-ui/core';
 import { UserContext } from './UserContext';
+import Cookies from 'js-cookie';
+import axios from './api/axios';
 
-import './App.css';
+const LOGIN_URL = '/api/v1/login';
+
+
 
 const useStyles = makeStyles(() => ({
   App: {
@@ -28,8 +33,39 @@ function App() {
   const [navbar, setNavbar] = useState(false);
   const classes = useStyles();
   const [user, setUser] = useState(null);
+  const [cookieToken, setCookieToken] = useState(null);
+  // if(Cookies.get('token')){
+  //   setCookieToken(Cookies.get('token'));
+  // }
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      setUser(JSON.parse(localStorage.getItem('user')));
+    //   try {
+    //     var email = user.email;
+    //     var password = user.password;
+    //     axios.post(LOGIN_URL,
+    //       JSON.stringify({ email, password }),
+    //       {
+    //         headers: { 'Content-Type': 'application/json' },
+    //       }
+    //     ).then((res) => {
+    //       document.cookie = `token=${res.data.token}`;
+    //       setCookieToken(Cookies.get('token'))
+    //     })
+    //     .catch((error)=>{
+    //       console.error(error);
+    //     })
+    //   }
+    //   catch (error) {
+    //     console.log(error);
+    //   }
+    }
+  }, [])
+  useEffect(() => {
+    if (user) localStorage.setItem('user', JSON.stringify(user));
+  }, [user])
   return (
-    <UserContext.Provider value={{user,setUser}}>
+    <UserContext.Provider value={{ user, setUser, cookieToken, setCookieToken }}>
       <div className={classes.App}>
         <Router>
           <Navbar navbar={navbar} setNavbar={setNavbar} />

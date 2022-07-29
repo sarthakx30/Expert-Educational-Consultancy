@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -24,7 +24,10 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Slider from '@mui/material/Slider';
 
+import {UserContext} from "../UserContext"
+
 import axios from '../api/axios';
+import Cookies from 'js-cookie';
 const COLLEGES_URL = '/api/v1/colleges';
 
 
@@ -86,10 +89,14 @@ var rows = [];
 
 const Colleges = ({ navbar, setNavbar }) => {
     const [collegeRows, setCollegeRows] = useState([]);
-
+    // var token = Cookies.get('token');
+    const {user,setUser,cookieToken,setCookieToken}=useContext(UserContext);
+    // console.log(token);
     useEffect(() => {
         setNavbar(true);
-        axios.get(COLLEGES_URL)
+        axios.get(COLLEGES_URL, {headers: {
+            Authorization:`Bearer ${cookieToken}`
+        }})
             .then((res) => {
                 rows = [];
                 res.data.colleges.map((College, index) => {

@@ -25,6 +25,12 @@ import MuiAlert from '@mui/material/Alert';
 
 import { Link } from "react-router-dom";
 
+import Cookies from 'js-cookie';
+import axios from '../api/axios';
+const LOGOUT_URL = '/api/v1/logout';
+
+
+
 const useStyles = makeStyles(() => ({
     link: {
         textDecoration: "none",
@@ -81,7 +87,7 @@ const DrawerMenu = () => {
     const classes = useStyles();
     const [openDrawer, setOpenDrawer] = useState(false);
 
-    const { user, setUser } = useContext(UserContext);
+    const { user, setUser, cookieToken, setCookieToken } = useContext(UserContext);
 
     return (
         <div>
@@ -130,29 +136,26 @@ const DrawerMenu = () => {
                                     </ListItem>
                                     <ListItem onClick={() => {
                                         setOpenDrawer(false);
-                                        // console.log("logged out")
-                                        try{
-                                            setUser(null);
+                                        try {
+                                            axios.get(LOGOUT_URL, {
+                                                headers: {
+                                                    Authorization: `Bearer ${cookieToken}`
+                                                }
+                                            })
+                                                .then((res) => {
+                                                    setUser(null);
+                                                    setCookieToken(null);
+                                                    Cookies.remove('token');
+                                                    localStorage.removeItem('user');
+                                                })
+                                                .catch((error) => {
+                                                    console.log(error);
+                                                });
+
                                         }
-                                        catch(error){
+                                        catch (error) {
                                             console.log(error)
                                         }
-                                        // return (
-                                        //     <Stack spacing={2} sx={{ width: '100%' }}>
-                                        //         <Button variant="outlined" onClick={handleClick}>
-                                        //             Open success snackbar
-                                        //         </Button>
-                                        //         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                                        //             <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                                        //                 This is a success message!
-                                        //             </Alert>
-                                        //         </Snackbar>
-                                        //         <Alert severity="error">This is an error message!</Alert>
-                                        //         <Alert severity="warning">This is a warning message!</Alert>
-                                        //         <Alert severity="info">This is an information message!</Alert>
-                                        //         <Alert severity="success">This is a success message!</Alert>
-                                        //     </Stack>
-                                        // )
                                     }}>
                                         <ListItemText>
                                             <Link className={classes.link} to="/">Logout</Link>

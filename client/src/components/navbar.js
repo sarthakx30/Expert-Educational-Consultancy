@@ -6,7 +6,11 @@ import { UserContext } from "../UserContext";
 import DrawerMenu from "./drawer";
 import logo from '../images/logo_white.png';
 import "../App.css";
-import texturedImage from "../images/textured_3_edit.png"
+import texturedImage from "../images/textured_3_edit.png";
+
+import Cookies from 'js-cookie';
+import axios from '../api/axios';
+const LOGOUT_URL = '/api/v1/logout';
 
 const useStyles = makeStyles((theme) => ({
     navlinks: {
@@ -81,8 +85,7 @@ const Navbar = ({ navbar, setNavbar }) => {
     const focus = useRef();
     const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
 
-    const { user, setUser } = useContext(UserContext);
-
+    const { user, setUser, cookieToken, setCookieToken } = useContext(UserContext);
     return (
         <div>
             <CssBaseline />
@@ -117,9 +120,35 @@ const Navbar = ({ navbar, setNavbar }) => {
                                         Register
                                     </Link>
                                 </> :
-                                    <Link to="/account" className={classes.link}>
-                                        Hi, {user.name}
-                                    </Link>
+                                    <>
+                                        <Link to="/account" className={classes.link}>
+                                            Hi, {user.name}
+                                        </Link>
+                                        <Link to="/" className={classes.link} onClick={() => {
+                                            try {
+                                                axios.get(LOGOUT_URL, {
+                                                    headers: {
+                                                        Authorization: `Bearer ${cookieToken}`
+                                                    }
+                                                })
+                                                    .then((res) => {
+                                                        setUser(null);
+                                                        setCookieToken(null);
+                                                        Cookies.remove('token');
+                                                        localStorage.removeItem('user');
+                                                    })
+                                                    .catch((error) => {
+                                                        console.log(error);
+                                                    });
+
+                                            }
+                                            catch (error) {
+                                                console.log(error)
+                                            }
+                                        }}>
+                                            Logout
+                                        </Link>
+                                    </>
                                 }
 
                             </div>
@@ -127,7 +156,7 @@ const Navbar = ({ navbar, setNavbar }) => {
                     </AppBar>
                 </>)
             }
-        </div>
+        </div >
     )
 }
 
