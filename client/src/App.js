@@ -6,11 +6,11 @@ import About from './pages/about';
 import Login from './pages/login';
 import Register from './pages/register';
 import Home from './pages/home';
+import ChatBotComponent from './components/chatBot';
 import Footer from './components/footer';
 import FAQ from './pages/faq';
 import Colleges from './pages/colleges';
 import Account from './pages/account';
-import Logout from './'
 import { makeStyles } from '@material-ui/core';
 import { UserContext } from './UserContext';
 import Cookies from 'js-cookie';
@@ -62,9 +62,9 @@ function App() {
             <Route path="/reviews" element={<FAQ navbar={navbar} setNavbar={setNavbar} />} />
             <Route path="/colleges" element={<Colleges navbar={navbar} setNavbar={setNavbar} />} />
             <Route path="/account" element={<Account navbar={navbar} setNavbar={setNavbar} />} />
-            {/* <Route path="/logout" element={<Logout/>} /> */}
           </Routes>
         </Router>
+        {/* <ChatBotComponent/> */}
         <Footer />
       </div>
     </UserContext.Provider>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextField, Button, Grid, Box, Typography, makeStyles, Paper, Container } from '@material-ui/core';
-import { Instagram, Facebook, Mail, Phone,Telegram} from '@material-ui/icons';
+import { Instagram, Facebook, Mail, Phone, Telegram,Business } from '@material-ui/icons';
 
 const useStyles = makeStyles(() => ({
     text: {
@@ -60,7 +60,7 @@ const useStyles = makeStyles(() => ({
     },
     icon: {
         // margin: "20px",
-        color:"orange"
+        color: "orange"
     },
 
 }));
@@ -80,12 +80,17 @@ const Footer = () => {
                         <Typography className={classes.text} variant="h5">Reach Us</Typography>
                         <Typography className={classes.text} variant="body2">Contact our Support team</Typography>
                         <Grid container spacing={2} justify="space-between">
-                            <Grid item md={12} xs={4} >
+                            <Grid item md={12} xs={12} >
                                 <Button size="small" backgroundColor="white" color="white" style={{ backgroundColor: "#444548", color: "white" }}>
-                                    <Mail />expertec104@gmail.com
+                                    <Mail /><a href="mailto: expertec104@gmail.com" style={{textDecoration: "none",color:"inherit"}} >expertec104@gmail.com</a>
                                 </Button>
                             </Grid>
-                            <Grid item md={12} xs={4}>
+                            <Grid item md={12} xs={12} >
+                                <Button size="small" backgroundColor="white" color="white" style={{ backgroundColor: "#444548", color: "white" }}>
+                                    <Business />104,Aditya Complex 2, D-Block,Central Market,Prashant Vihar,Delhi-110085
+                                </Button>
+                            </Grid>
+                            <Grid item md={12} xs={12}>
                                 <Button size="small" backgroundColor="white" color="white" style={{ backgroundColor: "#444548", color: "white" }}>
                                     <Phone />9313555010
                                 </Button>
