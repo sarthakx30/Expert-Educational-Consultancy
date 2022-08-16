@@ -38,11 +38,10 @@ exports.register = BigPromise(async (req, res, next) => {
 
   res.cookie("token", token, {
     expires: new Date(Date.now() + 60 * 60 * 1000), //cookie expires in 1 hr(60 mins)
-    sameSite : "none",
+    sameSite: "none",
     httpOnly: true,
     secure: true,
-    domain: "https://expertedu.com"
-
+    domain: "https://expertedu.com",
   });
 
   res.status(201).json({
@@ -83,25 +82,35 @@ exports.login = BigPromise(async (req, res, next) => {
   }
   // console.log(user);
 
-  user.password=undefined
+  user.password = undefined;
   // console.log(user);
 
   const token = await user.generateAuthToken();
 
-  res.cookie("token", token, {
-    expires: new Date(Date.now() + 60 * 60 * 1000), //cookie expires in 1 hr(60 mins)
-    sameSite : "none",
-    httpOnly: true,
-    secure: true,
-    domain: "https://expertedu.com"
+  // res.cookie("token", token, {
+  //   expires: new Date(Date.now() + 60 * 60 * 1000), //cookie expires in 1 hr(60 mins)
+  //   sameSite: "none",
+  //   httpOnly: true,
+  //   secure: true,
+  //   domain: ["https://expertedu.com", "http://localhost:4679"],
+  // });
 
+  // res.status(201).json({
+  //   success: true,
+  //   message: "user has been successfully logged in",
+  //   token,
+  //   user,
+  // });
+  res.cookie("token", token, {
+    expires: new Date(Date.now() + 10 * 60 * 1000),
+    httpOnly: true,
   });
 
-  res.status(201).json({
+  res.status(200).json({
     success: true,
-    message: "user has been successfully logged in",
+    message: "user has been logged in",
     token,
-    user
+    user,
   });
 });
 
