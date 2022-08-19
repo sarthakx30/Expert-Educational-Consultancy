@@ -87,12 +87,12 @@ const Footer = () => {
                             </Grid>
                             <Grid item md={12} xs={12} >
                                 <Button size="small" backgroundColor="white" color="white" style={{ backgroundColor: "#444548", color: "white" }}>
-                                    <Business />104,Aditya Complex 2, D-Block,Central Market,Prashant Vihar,Delhi-110085
+                                    <Business /><a href="https://goo.gl/maps/GmhC671p6ZArtr2B8" style={{textDecoration: "none",color:"inherit"}}>104,Aditya Complex 2, D-Block,Central Market,Prashant Vihar,Delhi-110085</a>
                                 </Button>
                             </Grid>
                             <Grid item md={12} xs={12}>
                                 <Button size="small" backgroundColor="white" color="white" style={{ backgroundColor: "#444548", color: "white" }}>
-                                    <Phone />9313555010
+                                    <Phone /><a href="tel:9313555010" style={{textDecoration: "none",color:"inherit"}} >9313555010</a>
                                 </Button>
                             </Grid>
                         </Grid>

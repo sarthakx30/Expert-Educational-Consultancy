@@ -18,8 +18,6 @@ import axios from './api/axios';
 
 const LOGIN_URL = '/api/v1/login';
 
-
-
 const useStyles = makeStyles(() => ({
   App: {
     backgroundColor: "#FFFFFF",
@@ -34,14 +32,19 @@ function App() {
   const classes = useStyles();
   const [user, setUser] = useState(null);
   const [cookieToken, setCookieToken] = useState(null);
-  // useEffect(() => {
-  //   if (Cookies.get('token')) setCookieToken(Cookies.get('token'));
-  // }, [cookieToken])
-  // if(Cookies.get('token')){
-  //   setCookieToken(Cookies.get('token'));
-  // }
+
+  //This method would work but seems taxing to the computer power.
+  // window.setInterval(() => {
+  //   if (!Cookies.get('token')) {
+  //     setUser(null);
+  //   }
+  // }, 10000);
+
   useEffect(() => {
     if (Cookies.get('token')) setCookieToken(Cookies.get('token'));
+    else{
+      localStorage.removeItem('user');
+    }
     if (localStorage.getItem('user')) {
       setUser(JSON.parse(localStorage.getItem('user')));
     }
@@ -64,7 +67,7 @@ function App() {
             <Route path="/account" element={<Account navbar={navbar} setNavbar={setNavbar} />} />
           </Routes>
         </Router>
-        {/* <ChatBotComponent/> */}
+        {/* <ChatBotComponent /> */}
         <Footer />
       </div>
     </UserContext.Provider>

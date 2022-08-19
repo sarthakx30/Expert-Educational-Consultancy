@@ -58,17 +58,13 @@ const Login = ({ navbar, setNavbar }) => {
                 }
             )
             console.log(response);
-            // const accessToken = response.accessToken
             setResponseRecieved(false);
             setSuccess(true);
             setUser(response.data.user);
-            document.cookie = `token=${response.data.token}`;
+            Cookies.set('token', response.data.token, { expires: new Date(new Date().getTime()+10*60*1000) });
+            // let expireTime = new Date(Date.now() +10*1000).toUTCString();
+            // document.cookie = `token=${response.data.token};expires=${expireTime}`;
             setCookieToken(Cookies.get('token'));
-            // if(user)localStorage.setItem('user', JSON.stringify(user));
-            // console.log(user);
-            // localStorage.setItem('user',user);
-            // console.log(response.data.token);
-            // console.log(user);
         } catch (error) {
             console.log(error);
             // console.log(error.response.data.msg);

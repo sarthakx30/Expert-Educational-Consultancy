@@ -32,6 +32,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -39,8 +40,43 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@1,200&display=swap');
 
 @font-face {
   font-family: Revue;
   src: url('./fonts/RevueBT-Regular.otf');
+}
+
+.sc-hKMtZM {
+  color: orange !important;
+  background-color: white !important;
+  font-style: italic !important;
+}
+
+.rsc-os-options {
+  margin-left: 35px !important;
+}
+
+.rsc-header-title:before {
+  content: 'Expert Educational '
+}
+
+.rsc-header-title:after {
+  content: ' Bot'
+}
+
+.rsc-header-title {
+  font-family: 'Nunito Sans' !important;
+  font-weight: 600 !important;
+}
+
+.rsc-container {
+  border-radius: 0px !important;
+}
+
+.rsc-input {
+  font-family: 'Source Code Pro', monospace;
+  color: #fea905 !important;
+  font-weight: 700;
+  letter-spacing: 2px;
 }
