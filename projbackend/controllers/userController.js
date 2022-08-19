@@ -225,6 +225,7 @@ exports.updateAccount = BigPromise(async (req, res, next) => {
   if (isModified) {
     await user.save();
   }
+  user.password= undefined;
 
   const token = user.generateAuthToken();
   res
