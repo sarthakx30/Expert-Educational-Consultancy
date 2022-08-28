@@ -1,32 +1,11 @@
-import React, { useState, useEffect,useContext } from 'react';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import Grow from '@mui/material/Grow';
-import Stack from '@mui/material/Stack';
-import Alert from '@mui/material/Alert';
-import Divider from '@mui/material/Divider';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from "../UserContext"
+import axios from '../api/axios';
+
+import { CircularProgress, Typography, Button, Radio, RadioGroup, FormControlLabel, Slider } from '@mui/material';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField, MenuItem, Grow, Stack, Alert, Divider } from '@mui/material';
 
 import texturedImage from "../images/textured_3_edit.png";
-
-import CircularProgress from '@mui/material/CircularProgress';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Slider from '@mui/material/Slider';
-
-import {UserContext} from "../UserContext"
-
-import axios from '../api/axios';
 import Cookies from 'js-cookie';
 const COLLEGES_URL = '/api/v1/colleges';
 
@@ -90,19 +69,22 @@ var rows = [];
 const Colleges = ({ navbar, setNavbar }) => {
     const [collegeRows, setCollegeRows] = useState([]);
     // var token = Cookies.get('token');
-    const {user,setUser,cookieToken,setCookieToken}=useContext(UserContext);
+    const { user, setUser, cookieToken, setCookieToken } = useContext(UserContext);
     // console.log(token);
     useEffect(() => {
         setNavbar(true);
-        axios.get(COLLEGES_URL, {headers: {
-            Authorization:`Bearer ${cookieToken}`
-        }})
+        axios.get(COLLEGES_URL, {
+            headers: {
+                Authorization: `Bearer ${cookieToken}`
+            }
+        })
             .then((res) => {
                 rows = [];
                 res.data.colleges.map((College, index) => {
                     rows.push(createData(index + 1, College.COLLEGE_NAME, College.UNIVERSITY_NAME, College.STATE, College.ESTD, College.INTAKE, College.STATUS, College.FEE, College.GRAD, College.CATEGORY));
                 })
                 setCollegeRows(rows);
+                setPermanentRows(rows);
             })
             .catch((error) => {
                 console.log(error);
@@ -113,8 +95,11 @@ const Colleges = ({ navbar, setNavbar }) => {
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
     const [state, setState] = useState('');
+    const [category, setCategory] = useState('');
     const [graduation, setGraduation] = useState('');
     const [fee, setFee] = useState(2000000);
+    const [collegeSearch, setCollegeSearch] = useState('');
+    const [permanentRows, setPermanentRows] = useState(rows);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -128,7 +113,6 @@ const Colleges = ({ navbar, setNavbar }) => {
     const [gotCollege, setGotCollege] = useState(true);
 
     const handleFilterChange = async (e) => {
-        // console.log(state);
         setGotCollege(true);
         setPage(0);
         e.preventDefault();
@@ -140,10 +124,20 @@ const Colleges = ({ navbar, setNavbar }) => {
             else {
                 setCollegeRows([]);
                 if (state === '') {
-                    response = await axios.get(`${COLLEGES_URL}?GRAD=${graduation}&FEE[lte]=${fee}`);
+                    if (category === '') {
+                        response = await axios.get(`${COLLEGES_URL}?GRAD=${graduation}&FEE[lte]=${fee}`);
+                    }
+                    else {
+                        response = await axios.get(`${COLLEGES_URL}?GRAD=${graduation}&FEE[lte]=${fee}&CATEGORY=${category}`);
+                    }
                 }
                 else {
-                    response = await axios.get(`${COLLEGES_URL}?STATE=${state}&GRAD=${graduation}&FEE[lte]=${fee}`);
+                    if (category === '') {
+                        response = await axios.get(`${COLLEGES_URL}?STATE=${state}&GRAD=${graduation}&FEE[lte]=${fee}`);
+                    }
+                    else {
+                        response = await axios.get(`${COLLEGES_URL}?GRAD=${graduation}&FEE[lte]=${fee}&STATE=${state}&CATEGORY=${category}`);
+                    }
                 }
                 if (response.data.colleges.length === 0) {
                     setGotCollege(false);
@@ -153,6 +147,7 @@ const Colleges = ({ navbar, setNavbar }) => {
                     rows.push(createData(index + 1, College.COLLEGE_NAME, College.UNIVERSITY_NAME, College.STATE, College.ESTD, College.INTAKE, College.STATUS, College.FEE, College.GRAD, College.CATEGORY));
                 })
                 setCollegeRows(rows);
+                setPermanentRows(rows);
             }
         } catch (error) {
             console.log(error);
@@ -163,56 +158,105 @@ const Colleges = ({ navbar, setNavbar }) => {
         return `${value}`;
     }
 
+    useEffect(() => {
+        let tempRows = permanentRows;
+        rows = [];
+        tempRows.filter((val) => {
+            if (collegeSearch === "" || collegeSearch === null) {
+                return val;
+            }
+            else if (val.cname.toLowerCase().includes(collegeSearch.toLowerCase())) {
+                return val;
+            }
+        }).map((val, key) => {
+            rows.push(val);
+        })
+        setCollegeRows(rows);
+    }, [collegeSearch])
+
     return (
         <Paper sx={{ margin: "80px auto", width: '95%' }}>
             <Typography align="center" variant="h4" style={{ fontFamily: "Nunito Sans", fontWeight: "600", color: "orange", textShadow: "1px 1px 2px black" }}>College List</Typography>
             <Divider sx={{ borderTop: "2px solid", margin: "10px 80px 0px 80px", color: "orange" }} />
-            <form style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: '20px' }} onSubmit={handleFilterChange}>
-                <Typography>Select Maximum Fees</Typography>
-                <Slider
-                    aria-label="Tuition Fee"
-                    defaultValue={2000000}
-                    getAriaValueText={valuetext}
-                    valueLabelDisplay="auto"
-                    valueLabelFormat={fee.toLocaleString('en-IN')}
-                    step={200000}
-                    marks
-                    min={1000000}
-                    max={9999999}
-                    value={fee}
-                    onChange={(e) => setFee(e.target.value)}
+            <Paper style={{ margin: '10px 0px 10px 0px' }}>
+                <Typography align="left" variant="h5" style={{ fontFamily: "Nunito Sans", fontWeight: "600", color: "orange", margin: '10px 0px 0px 10px' }}>
+                    Apply College Filters
+                </Typography>
+                <form style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: '20px' }} onSubmit={handleFilterChange}>
+                    <div style={{ display: 'flex', width: "100%", justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Typography>Select Maximum Fees</Typography>
+                        <Slider
+                            aria-label="Tuition Fee"
+                            defaultValue={2000000}
+                            getAriaValueText={valuetext}
+                            valueLabelDisplay="auto"
+                            valueLabelFormat={fee.toLocaleString('en-IN')}
+                            step={200000}
+                            marks
+                            min={1000000}
+                            max={9999999}
+                            value={fee}
+                            onChange={(e) => setFee(e.target.value)}
+                        />
+                        <Typography>{fee}</Typography>
+                    </div>
+                    <div style={{ display: "flex",flexWrap: "wrap", width: "100%", justifyContent: "space-between", alignItems: "center", marginTop: '20px' }}>
+                        <TextField
+                            style={{ margin: "15px", minWidth: "150px", height: "50px" }}
+                            select
+                            label="Select State"
+                            value={state}
+                            onChange={e => setState(e.target.value)}
+                        >
+                            <MenuItem value="">All</MenuItem>
+                            <MenuItem value="Gujarat">Gujarat</MenuItem>
+                            <MenuItem value="Uttar Pradesh">Uttar Pradesh</MenuItem>
+                            <MenuItem value="Delhi">Delhi</MenuItem>
+                            <MenuItem value="Rajasthan">Rajasthan</MenuItem>
+                            <MenuItem value="Tamil Nadu">Tamil Nadu</MenuItem>
+                            <MenuItem value="Haryana">Haryana</MenuItem>
+                            <MenuItem value="Karnataka">Karnataka</MenuItem>
+                            <MenuItem value="Kerala">Kerala</MenuItem>
+                        </TextField>
+                        <TextField
+                            style={{margin:'15px', minWidth: "160px", height: "50px" }}
+                            select
+                            label="Select Category"
+                            value={category}
+                            onChange={e => setCategory(e.target.value)}
+                        >
+                            <MenuItem value="">All</MenuItem>
+                            <MenuItem value="Deemed">Deemed</MenuItem>
+                            <MenuItem value="Government">Government</MenuItem>
+                            <MenuItem value="Private">Private</MenuItem>
+                        </TextField>
+                        <RadioGroup
+                            row
+                            aria-labelledby="demo-row-radio-buttons-group-label"
+                            name="row-radio-buttons-group"
+                            value={graduation}
+                            onChange={e => setGraduation(e.target.value)}
+                        >
+                            <FormControlLabel value="UG" control={<Radio />} label="UG" />
+                            <FormControlLabel value="PG" control={<Radio />} label="PG" />
+                        </RadioGroup>
+                        <Button type="submit" style={{ fontFamily: "Nunito Sans", fontWeight: "600", backgroundColor: "whiteorange", boxShadow: "0px 0px 2px 2px orange", height: "100%", padding: "7px" }}>Search</Button>
+                    </div>
+                </form>
+            </Paper>
+            <Paper style={{ margin: '10px 0px', display: 'flex', justifyContent: 'space-between' }}>
+                <Typography align="left" variant="h5" style={{ fontFamily: "Nunito Sans", fontWeight: "600", color: "orange", margin: '10px 0px 0px 10px' }}>
+                    Search College
+                </Typography>
+                <TextField label="Enter College Name" variant="outlined"
+                    style={{
+                        margin: '0px 10px 10px 0px',
+                        width: '50%'
+                    }}
+                    value={collegeSearch}
+                    onChange={e => setCollegeSearch(e.target.value)}
                 />
-                <div style={{ display: "flex", width: "100%", justifyContent: "space-around", alignItems: "center" }}>
-                    <TextField
-                        style={{ margin: "10px", minWidth: "100px", height: "50px" }}
-                        select
-                        label="State"
-                        value={state}
-                        onChange={e => setState(e.target.value)}
-                    >
-                        <MenuItem value="">All</MenuItem>
-                        <MenuItem value="Gujarat">Gujarat</MenuItem>
-                        <MenuItem value="Uttar Pradesh">Uttar Pradesh</MenuItem>
-                        <MenuItem value="Delhi">Delhi</MenuItem>
-                        <MenuItem value="Rajasthan">Rajasthan</MenuItem>
-                        <MenuItem value="Tamil Nadu">Tamil Nadu</MenuItem>
-                        <MenuItem value="Haryana">Haryana</MenuItem>
-                        <MenuItem value="Karnataka">Karnataka</MenuItem>
-                        <MenuItem value="Kerala">Kerala</MenuItem>
-                    </TextField>
-                    <RadioGroup
-                        row
-                        aria-labelledby="demo-row-radio-buttons-group-label"
-                        name="row-radio-buttons-group"
-                        value={graduation}
-                        onChange={e => setGraduation(e.target.value)}
-                    >
-                        <FormControlLabel value="UG" control={<Radio />} label="UG" />
-                        <FormControlLabel value="PG" control={<Radio />} label="PG" />
-                    </RadioGroup>
-                    <Button type="submit" style={{ fontFamily: "Nunito Sans", fontWeight: "600", backgroundColor: "whiteorange", boxShadow: "0px 0px 2px 2px orange", height: "100%", padding: "7px" }}>Search</Button>
-                </div>
-            </form>
+            </Paper>
             {!gotCollege ? (<Grow in timeout={500}>
                 <Stack sx={{ width: '100%' }}>
                     <Alert

@@ -67,7 +67,7 @@ function App() {
             <Route path="/account" element={<Account navbar={navbar} setNavbar={setNavbar} />} />
           </Routes>
         </Router>
-        {/* <ChatBotComponent /> */}
+        <ChatBotComponent />
         <Footer />
       </div>
     </UserContext.Provider>
