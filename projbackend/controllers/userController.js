@@ -2,7 +2,7 @@ const BigPromise = require("../utils/BigPromise");
 const customErr = require("../utils/customErr");
 const User = require("../models/User");
 const { eq } = require("lodash");
-// const cloudinary = require("cloudinary").v2;
+const cloudinary = require("cloudinary").v2;
 const mailHelper = require("../utils/mailHelper");
 const crypto = require("crypto");
 
@@ -18,44 +18,43 @@ exports.register = BigPromise(async (req, res, next) => {
   ) {
     return next(new customErr("Name,email and password are all required", 400));
   }
-
   //uploading images
-  // let imgResult;
-  // if (req.files) {
-  //   const photo = req.files.photo;
-  //   imgResult = await cloudinary.uploader.upload(photo.tempFilePath, {
-  //     folder: "users",
-  //     crop: "scale",
-  //   });
-  // }
-  // try {
-  const user = await User.create(req.body);
+  let imgResult;
+  if (req.files) {
+    const photo = req.files.photo;
+    imgResult = await cloudinary.uploader.upload(photo.tempFilePath, {
+      folder: "users",
+      crop: "scale",
+    });
+  }
+  try {
+    const user = await User.create(req.body);
 
-  console.log("User created succesfully");
-  console.log(user);
+    console.log("User created succesfully");
+    console.log(user);
 
-  const token = await user.generateAuthToken();
+    const token = await user.generateAuthToken();
 
-  res.cookie("token", token, {
-    expires: new Date(Date.now() + 60 * 60 * 1000), //cookie expires in 1 hr(60 mins)
-    sameSite: "none",
-    httpOnly: true,
-    secure: true,
-    domain: "https://expertedu.com",
-  });
+    res.cookie("token", token, {
+      expires: new Date(Date.now() + 60 * 60 * 1000), //cookie expires in 1 hr(60 mins)
+      sameSite: "none",
+      httpOnly: true,
+      secure: true,
+      domain: "https://expertedu.com",
+    });
 
-  res.status(201).json({
-    success: true,
-    token,
-    message: "user has been successfully created",
-  });
-  // } catch (error) {
-  //   console.log(error);
-  //   if (imgResult) {
-  //     await cloudinary.uploader.destroy(imgResult.public_id);
-  //   }
-  //   next(error);
-  // }
+    res.status(201).json({
+      success: true,
+      token,
+      message: "user has been successfully created",
+    });
+  } catch (error) {
+    console.log(error);
+    if (imgResult) {
+      await cloudinary.uploader.destroy(imgResult.public_id);
+    }
+    next(error);
+  }
 });
 
 //Login a user
@@ -209,23 +208,41 @@ exports.updateAccount = BigPromise(async (req, res, next) => {
     user.email = req.body.email;
     isModified = true;
   }
-  if (req.body.city && req.body.city !== " " && req.body.city !== user.city) {
-    user.city = req.body.city;
+
+  if (
+    req.body.quota &&
+    req.body.quota !== " " &&
+    req.body.quota !== user.quota
+  ) {
+    user.quota = req.body.quota;
     isModified = true;
   }
   if (
-    req.body.course &&
-    req.body.course !== " " &&
-    req.body.course !== user.course
+    req.body.feeBudget &&
+    req.body.feeBudget !== " " &&
+    req.body.feeBudget !== user.feeBudget
   ) {
-    user.course = req.body.course;
+    user.feeBudget = req.body.feeBudget;
+    isModified = true;
+  }
+  if (req.files) {
+    if (user.photo.id) {
+      const resp = await cloudinary.uploader.destroy(user.photo.id);
+    }
+    const photo = req.files.photo;
+    const imgResult = await cloudinary.uploader.upload(photo.tempFilePath, {
+      folder: "users",
+      crop: "scale",
+    });
+    user.photo.id = imgResult.public_id;
+    user.photo.secure_url = imgResult.secure_url;
     isModified = true;
   }
 
   if (isModified) {
     await user.save();
   }
-  user.password= undefined;
+  user.password = undefined;
 
   const token = user.generateAuthToken();
   res
@@ -342,4 +359,154 @@ exports.resetPassword = BigPromise(async (req, res, next) => {
       token,
       user,
     });
+});
+
+//Admin only route- Getting a single user
+exports.getSingleUser = BigPromise(async (req, res, next) => {
+  const user = await User.findOne({ _id: req.params.id });
+  if (!user) {
+    return next(customErr("User not found", 401));
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+exports.getAllUsers = BigPromise(async (req, res, next) => {
+  const users = await User.find(); //This Query returns alll the documents of this schema i.e All the users.
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
+//Admin only route- Update a user
+exports.adminUpdateUser = BigPromise(async (req, res, next) => {
+  const user = await User.findOne({ _id: req.params.id });
+  if (!user) {
+    return next(
+      new customErr("Login verification failed,Please try again", 500)
+    );
+  }
+  console.log(user);
+  if (req.body.password) {
+    return next(new customErr("Some error occured", 402));
+  }
+  if (
+    (!req.body.name && !req.body.email) ||
+    (req.body.name === " " && req.body.email === " ")
+  ) {
+    return next(new customErr("No new values found to update"));
+  }
+  let isModified = false;
+
+  if (req.body.name && req.body.name !== " " && req.body.name !== user.name) {
+    user.name = req.body.name;
+    isModified = true;
+  }
+  if (
+    req.body.email &&
+    req.body.email !== " " &&
+    req.body.email !== user.email
+  ) {
+    user.email = req.body.email;
+    isModified = true;
+  }
+  if (req.body.city && req.body.city !== " " && req.body.city !== user.city) {
+    user.city = req.body.city;
+    isModified = true;
+  }
+  if (
+    req.body.course &&
+    req.body.course !== " " &&
+    req.body.course !== user.course
+  ) {
+    user.course = req.body.course;
+    isModified = true;
+  }
+  if (
+    req.body.course &&
+    req.body.course !== " " &&
+    req.body.course !== user.course
+  ) {
+    user.course = req.body.course;
+    isModified = true;
+  }
+  if (
+    req.body.quota &&
+    req.body.quota !== " " &&
+    req.body.quota !== user.quota
+  ) {
+    user.quota = req.body.quota;
+    isModified = true;
+  }
+  if (
+    req.body.feeBudget &&
+    req.body.feeBudget !== " " &&
+    req.body.feeBudget !== user.feeBudget
+  ) {
+    user.feeBudget = req.body.feeBudget;
+    isModified = true;
+  }
+  if (req.files) {
+    if (user.photo.id) {
+      const resp = await cloudinary.uploader.destroy(user.photo.id);
+    }
+    const photo = req.files.photo;
+    const imgResult = await cloudinary.uploader.upload(photo.tempFilePath, {
+      folder: "users",
+      crop: "scale",
+    });
+    user.photo.id = imgResult.public_id;
+    user.photo.secure_url = imgResult.secure_url;
+    isModified = true;
+  }
+
+  if (isModified) {
+    await user.save();
+  }
+  user.password = undefined;
+
+  const token = user.generateAuthToken();
+  res
+    .cookie("token", token, {
+      expires: new Date(Date.now() + 10 * 60 * 1000),
+      httpOnly: true,
+    })
+    .json({
+      success: true,
+      message: "Updated user successfully",
+      token,
+      user,
+    });
+});
+
+//Admin only route- Delete a user
+exports.deleteUser = BigPromise(async (req, res, next) => {
+  const user = await User.findOne({ _id: req.params.id });
+  if (!user) {
+    return next(new customErr("User not found", 401));
+  }
+
+  if (user.photo.id) {
+    const resp = await cloudinary.uploader.destroy(user.photo.id);
+  }
+
+  const deletedUser = await user.remove();
+
+  console.log(deletedUser);
+
+  //Deleted user immediately gets logged out
+  res.cookie("token", null, {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "User deleted successfuly",
+  });
 });
