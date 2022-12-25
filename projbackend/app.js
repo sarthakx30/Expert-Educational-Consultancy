@@ -8,12 +8,14 @@ const cors = require("cors");
 //cookie parser middlware
 app.use(cookieParser());
 //cors middleware
-app.use(cors({
-  origin:"*",
-  credentials:true,
-  preflightContinue: false,
-  optionsSuccessStatus: 200
-}));
+app.use(
+  cors({
+    origin: "https://expertedu.com",
+    credentials: true,
+    preflightContinue: false,
+    optionsSuccessStatus: 200,
+  })
+);
 
 //For Docs
 const swaggerUi = require("swagger-ui-express");
