@@ -16,7 +16,7 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
-
+//Deployment procedure
 //For Docs
 const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
