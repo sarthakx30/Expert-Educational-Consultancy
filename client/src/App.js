@@ -11,6 +11,7 @@ import Footer from './components/footer';
 import FAQ from './pages/faq';
 import Colleges from './pages/colleges';
 import Account from './pages/account';
+import Course from './pages/course';
 import { makeStyles } from '@material-ui/core';
 import { UserContext } from './UserContext';
 import Cookies from 'js-cookie';
@@ -32,6 +33,7 @@ function App() {
   const classes = useStyles();
   const [user, setUser] = useState(null);
   const [cookieToken, setCookieToken] = useState(null);
+  const [course, setCourse] = React.useState('Course Details');
 
   //This method would work but seems taxing to the computer power.
   // window.setInterval(() => {
@@ -53,7 +55,7 @@ function App() {
     if (user) localStorage.setItem('user', JSON.stringify(user));
   }, [user])
   return (
-    <UserContext.Provider value={{ user, setUser, cookieToken, setCookieToken }}>
+    <UserContext.Provider value={{ user, setUser, cookieToken, setCookieToken,course,setCourse }}>
       <div className={classes.App}>
         <Router>
           <Navbar navbar={navbar} setNavbar={setNavbar} />
@@ -65,6 +67,7 @@ function App() {
             <Route path="/reviews" element={<FAQ navbar={navbar} setNavbar={setNavbar} />} />
             <Route path="/colleges" element={<Colleges navbar={navbar} setNavbar={setNavbar} />} />
             <Route path="/account" element={<Account navbar={navbar} setNavbar={setNavbar} />} />
+            <Route path="/course" element={<Course navbar={navbar} setNavbar={setNavbar} />} />
           </Routes>
         </Router>
         <ChatBotComponent />

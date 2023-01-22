@@ -110,11 +110,11 @@ const DrawerMenu = () => {
                                     <Link className={classes.link} to="/about">About</Link>
                                 </ListItemText>
                             </ListItem>
-                            <ListItem onClick={() => setOpenDrawer(false)}>
+                            {/* <ListItem onClick={() => setOpenDrawer(false)}>
                                 <ListItemText>
                                     <Link className={classes.link} to="/colleges">Colleges</Link>
                                 </ListItemText>
-                            </ListItem>
+                            </ListItem> */}
                             {!user ?
                                 <>
                                     <ListItem onClick={() => setOpenDrawer(false)}>

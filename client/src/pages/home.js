@@ -43,9 +43,10 @@ const Home = () => {
         let totalMilSecDur = 2;
         let incrementTime = (totalMilSecDur / 26) * 1000;
         let timer = setInterval(() => {
-            num += 1;
+            num += 1;   
             setYears(num);
-            if (num === 26) {
+            var date = new Date();
+            if (num === date.getFullYear()-1996) {
                 clearInterval(timer);
             }
         }, incrementTime);

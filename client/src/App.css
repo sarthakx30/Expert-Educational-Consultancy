@@ -80,3 +80,18 @@
   font-weight: 700;
   letter-spacing: 2px;
 }
+
+.MuiSelect-select{
+  border:0px !important;
+  outline: none !important;
+}
+
+.MuiSelect-outlined{
+  border:0px solid orange !important;
+  padding:5px !important;
+  outline: none !important;
+}
+
+.MuiSelect-icon{
+  color: #fea905 !important;
+}

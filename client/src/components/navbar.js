@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
+import { FormControl, Select, MenuItem, FormHelperText,InputLabel } from '@mui/material';
 import { Toolbar, Container, AppBar, Typography, Grow, Grid, CssBaseline, makeStyles, useTheme, useMediaQuery } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
@@ -85,7 +86,7 @@ const Navbar = ({ navbar, setNavbar }) => {
     const focus = useRef();
     const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
 
-    const { user, setUser, cookieToken, setCookieToken } = useContext(UserContext);
+    const { user, setUser, cookieToken, setCookieToken, course, setCourse } = useContext(UserContext);
     return (
         <div>
             <CssBaseline />
@@ -108,10 +109,73 @@ const Navbar = ({ navbar, setNavbar }) => {
                                 <Link to="/about" className={classes.link}>
                                     About
                                 </Link>
-
-                                <Link to="/colleges" className={classes.link}>
-                                    Colleges
+                                <Link to="/course" className={classes.link}>
+                                    <FormControl sx={{ marginBottom: 2.5, minWidth: 150 }}>
+                                        <FormHelperText sx={{ color: 'orange' }}>Select Course</FormHelperText>
+                                        <Select
+                                            sx={{ color: 'orange', border: '0px orange', outline: 'none' }}
+                                            value={course}
+                                            onChange={(e) => { setCourse(e.target.value) }}
+                                            // displayEmpty
+                                            inputProps={{ 'aria-label': 'Without label' }}
+                                        >
+                                            <FormControl sx={{ margin: 1, minWidth: 150 }}>
+                                            <InputLabel id="ug-label">UG Courses</InputLabel>
+                                                <Select
+                                                    labelId="ug-label"
+                                                    sx={{ color: 'orange', border: '0px orange', outline: 'none' }}
+                                                    value={course}
+                                                    onChange={(e) => { setCourse(e.target.value) }}
+                                                    label="UG Courses"
+                                                // inputProps={{ 'aria-label': 'Without label' }}
+                                                >
+                                                    <MenuItem value="UG1">UG1</MenuItem>
+                                                    <MenuItem value="UG2">UG2</MenuItem>
+                                                    <MenuItem value="UG3">UG3</MenuItem>
+                                                    {/* <MenuItem value={course}>
+                                                        <em>{course}</em>
+                                                    </MenuItem>
+                                                    <MenuItem value="MBBS">MBBS</MenuItem>
+                                                    <MenuItem value="BAMS">BAMS</MenuItem>
+                                                    <MenuItem value="BHMS">BHMS</MenuItem>
+                                                    <MenuItem value="BDS">BDS</MenuItem>
+                                                    <MenuItem value="MD/MDS">MD/MDS</MenuItem>
+                                                    <MenuItem value="DNB">DNB</MenuItem>
+                                                    <MenuItem value="FCPS/CPS">FCPS/CPS</MenuItem> */}
+                                                </Select>
+                                            </FormControl>
+                                            <FormControl sx={{ margin: 1, minWidth: 150 }}>
+                                                <InputLabel id="pg-label">PG Courses</InputLabel>
+                                                <Select
+                                                    labelId="pg-label"
+                                                    sx={{ color: 'orange', border: '0px orange', outline: 'none' }}
+                                                    value={course}
+                                                    onChange={(e) => { setCourse(e.target.value) }}
+                                                    label="PG Courses"
+                                                // inputProps={{ 'aria-label': 'Without label' }}
+                                                >
+                                                    <MenuItem value="PG1">PG1</MenuItem>
+                                                    <MenuItem value="PG2">PG2</MenuItem>
+                                                    <MenuItem value="PG3">PG3</MenuItem>
+                                                    {/* <MenuItem value={course}>
+                                                        <em>{course}</em>
+                                                    </MenuItem>
+                                                    <MenuItem value="MBBS">MBBS</MenuItem>
+                                                    <MenuItem value="BAMS">BAMS</MenuItem>
+                                                    <MenuItem value="BHMS">BHMS</MenuItem>
+                                                    <MenuItem value="BDS">BDS</MenuItem>
+                                                    <MenuItem value="MD/MDS">MD/MDS</MenuItem>
+                                                    <MenuItem value="DNB">DNB</MenuItem>
+                                                    <MenuItem value="FCPS/CPS">FCPS/CPS</MenuItem> */}
+                                                </Select>
+                                            </FormControl>
+                                        </Select>
+                                    </FormControl>
                                 </Link>
+
+                                {/* <Link to="/colleges" className={classes.link}>
+                                    Colleges
+                                </Link> */}
                                 {!user ? <>
                                     <Link to="/login" className={classes.link}>
                                         Login
