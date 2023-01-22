@@ -18,16 +18,25 @@ const userSchema = new Schema({
   },
   //TODO: Currently Phone number has no role in signup. Make it optional to sign in with either Email or Phone.No.
   //TODO: Make More intensive Validation for email and phone number
-  // phoneno: {
-  //   type: String,
-  //   unique: [true, "The Provided number already exists"],
-  // },
+  phoneno: {
+    type: String,
+    unique: [true, "The Provided number already exists"],
+  }, //TODO: OTP  validation of mobile number
   course: {
     type: String,
     enum: ["MBBS", "BAMS", "BHMS", "BDS", "MD/MS", "DNB", "FCPS/CPS"],
+    required: [true, "Course must be provided"],
   },
   city: {
     type: String,
+  },
+  photo: {
+    id: {
+      type: String,
+    },
+    secure_url: {
+      type: String,
+    },
   },
   password: {
     type: String,
@@ -46,6 +55,75 @@ const userSchema = new Schema({
   role: {
     type: String,
     default: "user",
+    enum: ["user", "admin", "bronze", "silver", "gold", "platinum"],
+  },
+  gender: {
+    type: String,
+    required: [true, "Gener must be provied"],
+  },
+  dob: {
+    date: {
+      type: String,
+      required: [true, "Date must be provided"],
+    },
+    month: {
+      type: String,
+      required: [true, "Month must be provided"],
+    },
+    year: {
+      type: String,
+      required: [true, "Month must be provided"],
+    },
+  },
+  neet: {
+    score: {
+      type: String,
+      // required: [true, "NEET Score must be provided"],
+    },
+    airRank: {
+      type: String,
+    },
+    categoryRank: {
+      type: String,
+    },
+  }, //ASK
+  category: {
+    type: String,
+    required: [true, "Category must be provided"],
+    enum: ["state", "central"],
+  }, //ASK
+  state: {
+    domicile: {
+      type: String,
+      required: [true, "Domicile state must be provided"],
+    },
+    passedTenth: {
+      type: String,
+      required: [true, "State of passing 10th must be provided"],
+    },
+    passedEleventh: {
+      type: String,
+      required: [true, "State of passing 11th must be provided"],
+    },
+    passedTwelfth: {
+      type: String,
+      required: [true, "State of passing 12th must be provided"],
+    },
+  },
+  isPwd: {
+    type: Boolean,
+    required: [true, "PWD must be provided"],
+  },
+  occParent: {
+    type: String,
+    enum: ["ESI", "Defence", "Paramilitary", "Judiciary", "other"],
+    required: [true, "Occupation of Parent must be provided"],
+  },
+  quota: {
+    type: String,
+  }, //ASK: about this
+  feeBudget: {
+    type: String,
   },
   createdAt: {
     type: Date,

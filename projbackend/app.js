@@ -7,13 +7,20 @@ const cors = require("cors");
 
 //cookie parser middlware
 app.use(cookieParser());
-
 //cors middleware
-app.use(cors({
-  origin:["https://expertedu.com","http://localhost:3000"],
-  credentials:true
-}));
-
+app.use(
+  cors({
+    origin: [
+      "https://expertedu.com",
+      "http://localhost:3000",
+      "https://myadmissionexpert.com",
+    ],
+    credentials: true,
+    preflightContinue: false,
+    optionsSuccessStatus: 200,
+  })
+);
+//Deployment procedure
 //For Docs
 const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
