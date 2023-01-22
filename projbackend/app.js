@@ -10,7 +10,11 @@ app.use(cookieParser());
 //cors middleware
 app.use(
   cors({
-    origin: "https://expertedu.com",
+    origin: [
+      "https://expertedu.com",
+      "http://localhost:3000",
+      "https://myadmissionexpert.com",
+    ],
     credentials: true,
     preflightContinue: false,
     optionsSuccessStatus: 200,
