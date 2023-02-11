@@ -20,6 +20,8 @@ exports.register = BigPromise(async (req, res, next) => {
   }
   //uploading images
   let imgResult;
+  console.log(req.files);
+  console.log(req.body);
   if (req.files) {
     const image = req.files.image;
     imgResult = await cloudinary.uploader.upload(image.tempFilePath, {
