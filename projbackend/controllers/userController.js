@@ -22,7 +22,7 @@ exports.register = BigPromise(async (req, res, next) => {
   let imgResult;
   if (req.files) {
     const image = req.files.image;
-    imgResult = await cloudinary.uploader.upload(photo.tempFilePath, {
+    imgResult = await cloudinary.uploader.upload(image.tempFilePath, {
       folder: "users",
       crop: "scale",
     });
