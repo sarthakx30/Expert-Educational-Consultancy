@@ -62,18 +62,8 @@ const userSchema = new Schema({
     required: [true, "Gener must be provied"],
   },
   dob: {
-    date: {
-      type: String,
-      required: [true, "Date must be provided"],
-    },
-    month: {
-      type: String,
-      required: [true, "Month must be provided"],
-    },
-    year: {
-      type: String,
-      required: [true, "Month must be provided"],
-    },
+    type: String,
+    required: [true, "Date of Birth must be provided"],
   },
   neet: {
     score: {
@@ -115,15 +105,23 @@ const userSchema = new Schema({
     required: [true, "PWD must be provided"],
   },
   occParent: {
-    type: String,
-    enum: ["ESI", "Defence", "Paramilitary", "Judiciary", "other"],
-    required: [true, "Occupation of Parent must be provided"],
+    motherOccupation:{
+      type: String,
+      enum: ["ESI", "Defence", "Paramilitary", "Judiciary", "other"],
+      required: [true, "Occupation of Parent must be provided"],
+    },
+    fatherOccupation:{
+      type: String,
+      enum: ["ESI", "Defence", "Paramilitary", "Judiciary", "other"],
+      required: [true, "Occupation of Parent must be provided"],
+    }
   },
   quota: {
     type: String,
+    enum:["General","SC","ST","OBC"]
   }, //ASK: about this
   feeBudget: {
-    type: String,
+    type: Number,
   },
   createdAt: {
     type: Date,
