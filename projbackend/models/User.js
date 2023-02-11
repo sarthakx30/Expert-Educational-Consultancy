@@ -30,7 +30,7 @@ const userSchema = new Schema({
   city: {
     type: String,
   },
-  photo: {
+  image: {
     id: {
       type: String,
     },
