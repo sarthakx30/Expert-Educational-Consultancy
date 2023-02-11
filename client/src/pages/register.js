@@ -32,6 +32,7 @@ const Register = ({ navbar, setNavbar }) => {
     }, [])
 
     const [image, setImage] = useState(null);
+    const [imageURL,setImageURL] = useState(null);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -76,15 +77,20 @@ const Register = ({ navbar, setNavbar }) => {
         setResponseRecieved(true);
         setSuccess(false);
         setFailiure(false);
-        if (!name || !email || !password || !course || !gender || !dob || !category || !state || !isPwd || !occParent) {
+        if (!name || !email || !password || !course || !gender || !dob || !category || !state || !occParent) {
             setResponseRecieved(false);
             return alert("One or more fields missing");
         }
         try {
+            // const form=document.querySelector("form");
+            // const formData = new FormData(form);
+            // formData.append('file',image);
+            // console.log(formData);
+            // console.log({name, email, password, course, city, image, gender, dob, neet, state, isPwd, occParent, quota, feeBudget,category});
             const response = await axios.post(REGISTERATION_URL,
-                JSON.stringify({ name, email, password, course, city, image, gender, dob, neet, state, isPwd, occParent, quota, feeBudget,category }),
+                JSON.stringify({name, email, password, course, city, image, gender, dob, neet, state, isPwd, occParent, quota, feeBudget,category}),
                 {
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json'},
                     withCredentials: true
                 }
             )
@@ -153,7 +159,7 @@ const Register = ({ navbar, setNavbar }) => {
                         <Grid item sm={12} md={6}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <Typography variant="h6" style={{ margin: '20px' }}>Choose a Profile Picture</Typography>
-                                <img alt="Upload a Photo" style={{ width: '125px', height: '125px', borderRadius: '50%', objectFit: 'cover' }} src={image} />
+                                <img alt="Upload a Photo" style={{ width: '125px', height: '125px', borderRadius: '50%', objectFit: 'cover' }} src={imageURL} />
                             </div>
                         </Grid>
                         <Grid item sm={12} md={6}>
@@ -163,10 +169,10 @@ const Register = ({ navbar, setNavbar }) => {
                                     id="avatar"
                                     type="file"
                                     accepts="image/*"
-                                    name="myImage"
+                                    name="image"
                                     onChange={(event) => {
-                                        setImage(URL.createObjectURL(event.target.files[0]));
-
+                                        setImageURL(URL.createObjectURL(event.target.files[0]));
+                                        setImage(event.target.files[0]);
                                     }}
                                 />
                                 <label for="avatar">UPLOAD PHOTO</label>
@@ -462,12 +468,12 @@ const Register = ({ navbar, setNavbar }) => {
                                     <TextField
                                         select
                                         variant={occParent.motherOccupation ? "filled" : "standard"}
-                                        helperText="Enter Mother's occParent"
+                                        helperText="Enter Mother's occupation"
                                         value={occParent.motherOccupation}
                                         onChange={(e) => setoccParent({ ...occParent, motherOccupation: e.target.value })}
                                         style={{ margin: '15px', width: '200px' }}
                                         id="outlined-basic"
-                                        label="Mother's occParent"
+                                        label="Mother's occupation"
                                     >
                                         <MenuItem value="ESI">ESI</MenuItem>
                                         <MenuItem value="Defence">Defence</MenuItem>
@@ -478,13 +484,13 @@ const Register = ({ navbar, setNavbar }) => {
                                     </TextField>
                                     <TextField
                                         select
-                                        helperText="Enter Father's occParent"
+                                        helperText="Enter Father's occupation"
                                         value={occParent.fatherOccupation}
                                         variant={occParent.fatherOccupation ? "filled" : "standard"}
                                         onChange={(e) => setoccParent({ ...occParent, fatherOccupation: e.target.value })}
                                         style={{ margin: '15px', width: '200px' }}
                                         id="outlined-basic"
-                                        label="Father's occParent"
+                                        label="Father's occupation"
                                     >
                                         <MenuItem value="ESI">ESI</MenuItem>
                                         <MenuItem value="Defence">Defence</MenuItem>
