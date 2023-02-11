@@ -81,17 +81,62 @@
   letter-spacing: 2px;
 }
 
-.MuiSelect-select{
-  border:0px !important;
+
+.MuiSelect-outlined {
+  border: 0px solid orange !important;
+  padding: 5px !important;
   outline: none !important;
 }
 
-.MuiSelect-outlined{
-  border:0px solid orange !important;
-  padding:5px !important;
-  outline: none !important;
-}
-
-.MuiSelect-icon{
+.MuiSelect-icon {
   color: #fea905 !important;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background: transparent;
+  color: skyblue;
+  cursor: pointer;
+  height: auto;
+  position: absolute;
+  height: 22px;
+  left: 275px;
+  width: 120px;
+}
+
+input::file-selector-button {
+  font-family: Nunito Sans;
+  font-weight: 1000;
+  background: white;
+  color: black;
+  border-radius: 10px;
+  transition: all 0.5s ease;
+  border: 2px solid orange;
+  width: 150px;
+  padding: 5px;
+}
+
+input::file-selector-button:hover,
+input::file-selector-button:focus {
+  background: linear-gradient(to right bottom, black, #0411af);
+  color: #fea905;
+  box-shadow: 0px 0px 6px 2.5px #fea905 ,1px 1px 1px 0px #ECDE65,1px 1px 1px 0px #ECDE65;
+}
+
+label[for=avatar] {
+  font-family: Nunito Sans;
+  font-weight: 1000;
+  background: white;
+  color: black;
+  border-radius: 10px;
+  transition: all 0.5s ease;
+  border: 2px solid orange;
+  width: 150px;
+  padding: 7px 7px 7px 18px;
+  margin-bottom: 6px;
+}
+
+label[for=avatar]:hover,label[for=avatar]:focus{
+  background: linear-gradient(to right bottom, black, #0411af);
+  color: #fea905;
+  box-shadow: 0px 0px 6px 2.5px #fea905 ,1px 1px 1px 0px #ECDE65,1px 1px 1px 0px #ECDE65;
 }

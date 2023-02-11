@@ -57,7 +57,7 @@ const Login = ({ navbar, setNavbar }) => {
                     headers: { 'Content-Type': 'application/json' },
                 }
             )
-            console.log(response);
+            // console.log(response);
             setResponseRecieved(false);
             setSuccess(true);
             setUser(response.data.user);
