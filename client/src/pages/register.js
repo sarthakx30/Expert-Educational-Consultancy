@@ -82,13 +82,14 @@ const Register = ({ navbar, setNavbar }) => {
             return alert("One or more fields missing");
         }
         try {
-            // const form=document.querySelector("form");
-            // const formData = new FormData(form);
-            // formData.append('file',image);
-            // console.log(formData);
+            const form=document.getElementById("form");
+            console.log(form);
+            const formData = new FormData(form);
+            // formData.append('name',name);
+            console.log([...formData]);
             // console.log({name, email, password, course, city, image, gender, dob, neet, state, isPwd, occParent, quota, feeBudget,category});
             const response = await axios.post(REGISTERATION_URL,
-                JSON.stringify({name, email, password, course, city, image, gender, dob, neet, state, isPwd, occParent, quota, feeBudget,category}),
+                {name, email, password, course, city, image, gender, dob, neet, state, isPwd, occParent, quota, feeBudget,category},
                 {
                     headers: { 'Content-Type': 'application/json'},
                     withCredentials: true
@@ -154,7 +155,7 @@ const Register = ({ navbar, setNavbar }) => {
                 Register
             </Typography>
             <Paper elevation={3} style={{ padding: '5px 0px 5px 0px' }}>
-                <form onSubmit={handleSubmit} className={classes.form}>
+                <form onSubmit={handleSubmit} className={classes.form} id="form">
                     <Grid container spacing={0} sx={{ width: "100%" }}>
                         <Grid item sm={12} md={6}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -200,18 +201,18 @@ const Register = ({ navbar, setNavbar }) => {
                         <Grid item sm={12} md={6}>
                             <div style={{ background: 'rgba(102,173,255,0.4)', margin: '20px', padding: '10px', borderRadius: '20px' }}>
                                 <Typography variant="h4" style={{ margin: '30px 10px 10px 10px' }}>Personal Details</Typography>
-                                <TextField value={name} onChange={(e) => setName(e.target.value)} style={{ margin: '15px' }} id="outlined-basic" label="Name" variant="outlined" />
-                                <TextField value={email} onChange={(e) => setEmail(e.target.value)} style={{ margin: '15px' }} id="outlined-basic" label="Email" variant="outlined" />
-                                <TextField type="password" value={password} onChange={(e) => setPassword(e.target.value)} style={{ margin: '15px', marginBottom: '20px' }} id="outlined-basic" label="Password" variant="outlined" />
-                                <TextField value={city} onChange={(e) => setCity(e.target.value)} style={{ margin: '15px' }} id="outlined-basic" label="City" variant="outlined" />
-                                <TextField value={phoneNo} onChange={(e) => setPhoneNo(e.target.value)} style={{ margin: '15px' }} id="outlined-basic" label="Phone Number" variant="outlined" />
+                                <TextField name="name" value={name} onChange={(e) => setName(e.target.value)} style={{ margin: '15px' }} id="outlined-basic" label="Name" variant="outlined" />
+                                <TextField name="email" value={email} onChange={(e) => setEmail(e.target.value)} style={{ margin: '15px' }} id="outlined-basic" label="Email" variant="outlined" />
+                                <TextField name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} style={{ margin: '15px', marginBottom: '20px' }} id="outlined-basic" label="Password" variant="outlined" />
+                                <TextField name="city" value={city} onChange={(e) => setCity(e.target.value)} style={{ margin: '15px' }} id="outlined-basic" label="City" variant="outlined" />
+                                <TextField name="phoneNo" value={phoneNo} onChange={(e) => setPhoneNo(e.target.value)} style={{ margin: '15px' }} id="outlined-basic" label="Phone Number" variant="outlined" />
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                     <Typography style={{ margin: '15px 115px 15px 15px' }}>Select your Gender</Typography>
                                     <RadioGroup
                                         aria-labelledby="gender-radio-buttons-group-label"
                                         defaultValue={gender}
                                         onChange={(e) => setGender(e.target.value)}
-                                        name="gender-radio-buttons-group"
+                                        name="gender"
                                     >
                                         <div>
                                             <FormControlLabel value="female" control={<Radio />} label="Female" />
@@ -222,7 +223,7 @@ const Register = ({ navbar, setNavbar }) => {
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                     <Typography style={{ margin: '15px 40px 15px 15px' }}>Select your DOB : </Typography>
-                                    <input style={{ background: 'transparent', border: '0px', borderTop: '2px', color: 'orange', fontWeight: "600" }} type="date" label="DOB" value={dob} onChange={(e) => setDob(e.target.value)} id="dob" />
+                                    <input name="dob" style={{ background: 'transparent', border: '0px', borderTop: '2px', color: 'orange', fontWeight: "600" }} type="date" label="DOB" value={dob} onChange={(e) => setDob(e.target.value)} id="dob" />
                                     <img width="15px" style={{ position: 'relative', right: '15px', bottom: '2px' }} src={CalendarIcon} />
                                 </div>
                             </div>
@@ -237,6 +238,7 @@ const Register = ({ navbar, setNavbar }) => {
                                     style={{ margin: '15px' }}
                                     label="Course"
                                     value={course}
+                                    name="course"
                                     onChange={(e) => setCourse(e.target.value)}
                                 >
                                     <MenuItem value="">
@@ -260,6 +262,7 @@ const Register = ({ navbar, setNavbar }) => {
                                     style={{ margin: '15px 60px 15px 15px' }}
                                     label="Domicile State"
                                     value={state.domicile}
+                                    name="domicile"
                                     onChange={(e) => setState({ ...state, domicile: e.target.value })}
                                 >
                                     <MenuItem value="">
@@ -301,6 +304,7 @@ const Register = ({ navbar, setNavbar }) => {
                                     style={{ margin: '15px' }}
                                     label="Tenth State"
                                     value={state.passedTenth}
+                                    name="passedTenth"
                                     onChange={(e) => setState({ ...state, passedTenth: e.target.value })}
                                 >
                                     <MenuItem value="">
@@ -341,6 +345,7 @@ const Register = ({ navbar, setNavbar }) => {
                                     helperText="Enter the state you passed your 11th from"
                                     style={{ margin: '15px' }}
                                     label="Eleventh State"
+                                    name="passedEleventh"
                                     value={state.passedEleventh}
                                     onChange={(e) => setState({ ...state, passedEleventh: e.target.value })}
                                 >
@@ -383,6 +388,7 @@ const Register = ({ navbar, setNavbar }) => {
                                     style={{ margin: '15px' }}
                                     label="Twelfth State"
                                     value={state.passedTwelfth}
+                                    name="passedTwelfth"
                                     onChange={(e) => setState({ ...state, passedTwelfth: e.target.value })}
                                 >
                                     <MenuItem value={null}>
@@ -428,7 +434,7 @@ const Register = ({ navbar, setNavbar }) => {
                                         aria-labelledby="pwd-radio-buttons-group-label"
                                         defaultValue={isPwd}
                                         onChange={(e) => setPwd(e.target.value)}
-                                        name="pwd-radio-buttons-group"
+                                        name="pwd"
                                     >
                                         <div>
                                             <FormControlLabel value={false} control={<Radio />} label="No" />
@@ -443,6 +449,7 @@ const Register = ({ navbar, setNavbar }) => {
                                     style={{ margin: '15px' }}
                                     label="Quota"
                                     value={quota}
+                                    name="quota"
                                     onChange={(e) => setQuota(e.target.value)}
                                 >
                                     <MenuItem value="General">General</MenuItem>
@@ -458,6 +465,7 @@ const Register = ({ navbar, setNavbar }) => {
                                     style={{ margin: '15px' }}
                                     label="Category"
                                     value={category}
+                                    name="category"
                                     onChange={(e) => setCategory(e.target.value)}
                                 >
                                     <MenuItem value="central">Central</MenuItem>
@@ -473,6 +481,7 @@ const Register = ({ navbar, setNavbar }) => {
                                         onChange={(e) => setoccParent({ ...occParent, motherOccupation: e.target.value })}
                                         style={{ margin: '15px', width: '200px' }}
                                         id="outlined-basic"
+                                        name="motherOccupation"
                                         label="Mother's occupation"
                                     >
                                         <MenuItem value="ESI">ESI</MenuItem>
@@ -490,6 +499,7 @@ const Register = ({ navbar, setNavbar }) => {
                                         onChange={(e) => setoccParent({ ...occParent, fatherOccupation: e.target.value })}
                                         style={{ margin: '15px', width: '200px' }}
                                         id="outlined-basic"
+                                        name="fatherOccupation"
                                         label="Father's occupation"
                                     >
                                         <MenuItem value="ESI">ESI</MenuItem>

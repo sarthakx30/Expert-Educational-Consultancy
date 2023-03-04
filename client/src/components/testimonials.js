@@ -86,9 +86,12 @@ const Testimonials = () => {
                             <img
                                 className={classes.image}
                                 src={testimonial.image}
-                                alt="Second slide"
+                                alt="User Image"
                             />
                             <Carousel.Caption className={classes.caption}>
+                                <Typography className={classes.text} variant="h5" gutterBottom style={{ color: "orange", }}>
+                                    NEET {testimonial.type}
+                                </Typography>
                                 <Typography className={classes.text} variant="h4" gutterBottom style={{ color: "orange", }}>
                                     {testimonial.name}
                                 </Typography>
