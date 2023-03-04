@@ -87,13 +87,39 @@ const Register = ({ navbar, setNavbar }) => {
             // formData.append('file',image);
             // console.log(formData);
             // console.log({name, email, password, course, city, image, gender, dob, neet, state, isPwd, occParent, quota, feeBudget,category});
+            // const response = await axios.post(REGISTERATION_URL,
+            //     JSON.stringify({name, email, password, course, city, image, gender, dob, neet, state, isPwd, occParent, quota, feeBudget,category}),
+            //     {
+            //         headers: { 'Content-Type': 'application/json'},
+            //         withCredentials: true
+            //     }
+            // )
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('email', email);
+            formData.append('password', password);
+            formData.append('phoneno',phoneNo);
+            formData.append('course', course);
+            formData.append('city', city);
+            formData.append('image', image); // `image` should be a file object, such as from an `<input type="file">` field
+            formData.append('gender', gender);
+            formData.append('dob', dob);
+            formData.append('neet', JSON.stringify(neet));
+            formData.append('state', JSON.stringify(state));
+            formData.append('isPwd', isPwd);
+            formData.append('occParent', JSON.stringify(occParent));
+            formData.append('quota', quota);
+            formData.append('feeBudget', feeBudget);
+            formData.append('category', category);
+            console.log(formData);
             const response = await axios.post(REGISTERATION_URL,
-                JSON.stringify({name, email, password, course, city, image, gender, dob, neet, state, isPwd, occParent, quota, feeBudget,category}),
-                {
-                    headers: { 'Content-Type': 'application/json'},
-                    withCredentials: true
-                }
-            )
+            formData,
+             {
+                headers: { 'Content-Type': 'multipart/form-data'},
+                withCredentials: true
+            }
+)
+            console.log(formData);
             // console.log(JSON.stringify(response));
             // const accessToken = response.accessToken
             setResponseRecieved(false);
@@ -106,7 +132,8 @@ const Register = ({ navbar, setNavbar }) => {
             setFailiure(true);
             setResponseRecieved(false);
         }
-        console.log(name, email, password, course);
+        console.log(name, email, password, course,image);
+        console.log(JSON.stringify(image));
 
     }
 

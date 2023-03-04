@@ -57,12 +57,12 @@ const Services = () => {
                     boxShadow: "0px 0px 6px 2.5px #fea905 ,1px 1px 1px 0px #ECDE65,1px 1px 1px 0px #ECDE65",
                 }}>
                     <ListItem disablePadding>
-                        <ListItemButton component="a" href="../Downloadable_Content/UG_SERVICES.pdf" download>
+                        <ListItemButton component="a" href="../Downloadable_Content/Expert NEET UG Services 2023 Prashant Vihar.pdf" download>
                             <ListItemText primary="UG Service Brochure" />
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
-                        <ListItemButton component="a" href="../Downloadable_Content/PG_SERVICES.pdf" download>
+                        <ListItemButton component="a" href="../Downloadable_Content/Expert NEET UG Services 2023 Prashant Vihar.pdf" download>
                             <ListItemText primary="PG Service Brochure" />
                         </ListItemButton>
                     </ListItem>
