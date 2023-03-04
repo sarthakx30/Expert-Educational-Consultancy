@@ -21,15 +21,26 @@ exports.register = BigPromise(async (req, res, next) => {
   //uploading images
   let imgResult;
   console.log(req.files);
-  console.log(req.body);
+  // console.log(req.body);
   if (req.files) {
     const image = req.files.image;
+    console.log("Image is present");
+    console.log(image);
     imgResult = await cloudinary.uploader.upload(image.tempFilePath, {
       folder: "users",
       crop: "scale",
     });
   }
   try {
+    console.log("Creating user");
+    req.body.neet=JSON.parse(req.body.neet);
+    req.body.state=JSON.parse(req.body.state);
+    req.body.occParent=JSON.parse(req.body.occParent);
+    req.body.image={
+      id: req.files ? imgResult.public_id : undefined,
+      secure_url: req.files ? imgResult.secure_url : undefined,
+    }
+    // console.log(req.body);
     const user = await User.create(req.body);
 
     console.log("User created succesfully");
@@ -51,6 +62,7 @@ exports.register = BigPromise(async (req, res, next) => {
       message: "user has been successfully created",
     });
   } catch (error) {
+    console.log("Error occured while creating user");
     console.log(error);
     if (imgResult) {
       await cloudinary.uploader.destroy(imgResult.public_id);
