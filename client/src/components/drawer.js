@@ -68,7 +68,16 @@ const useStyles = makeStyles(() => ({
     },
     list: {
         // background: "#0411af",
-    }
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "start",
+    },
+    courseMenuLinks: {
+        textDecoration: "none",
+        color: "#fea905",
+        fontSize: "17px",
+
+    },
 }));
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -81,6 +90,10 @@ const DrawerMenu = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuOpenUG, setMenuOpenUG] = useState(false);
     const [menuOpenPG, setMenuOpenPG] = useState(false);
+
+    //mode menu
+    const [modeMenuOpen, setModeMenuOpen] = useState(false);
+
     const handleClick = () => {
         setOpen(true);
     };
@@ -94,7 +107,7 @@ const DrawerMenu = () => {
     const classes = useStyles();
     const [openDrawer, setOpenDrawer] = useState(false);
 
-    const { user, setUser, cookieToken, setCookieToken, course, setCourse } = useContext(UserContext);
+    const { user, setUser, cookieToken, setCookieToken, course, setCourse, mode, setMode } = useContext(UserContext);
 
     return (
         <div>
@@ -112,10 +125,10 @@ const DrawerMenu = () => {
                         classes={{ paper: classes.paper }}
                     >
 
-                        <List className={classes.list}>
+                        <List>
                             <ListItem onClick={() => setOpenDrawer(false)}>
                                 <ListItemText>
-                                    <Link className={classes.link} to="/about">About</Link>
+                                    <Link className={classes.link} to="/about">About Us</Link>
                                 </ListItemText>
                             </ListItem>
                             {/* <ListItem onClick={() => setOpenDrawer(false)}>
@@ -123,10 +136,57 @@ const DrawerMenu = () => {
                                     <Link className={classes.link} to="/colleges">Colleges</Link>
                                 </ListItemText>
                             </ListItem> */}
-                            <ListItem style={{ display: 'flex', flexDirection: 'column' }}>
+                            <ListItem onClick={() => setModeMenuOpen(!modeMenuOpen)}
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'flex-start',
+                                    paddingLeft: '11px'
+                                }}
+                            >
+                                <button style={{ background: 'transparent', border: 'none', display: 'flex' }}>
+                                    <Typography style={{ fontSize: '20px', color: '#fea905' }}>
+                                        Mode
+                                    </Typography>
+
+                                    <img src={dropDownIcon} />
+                                </button>
+                                <Collapse in={modeMenuOpen} timeout={500} unmountOnExit
+                                    style={{
+                                        top: '65px',
+                                        margin: '0px',
+                                        padding: '0px',
+                                        zIndex: '100'
+                                    }}>
+                                    <ul class="menu-list-drawer">
+                                        <li style={{
+                                            background: mode === 'UG' ? 'rgba(255,165,0,0.2)' : 'transparent',
+                                            listStyleType: 'none',
+                                            padding: '10px',
+                                        }}
+                                            onClick={() => setMode('UG')}
+                                        >
+                                            Neet UG
+                                        </li>
+                                        <li style={{
+                                            background: mode === 'PG' ? 'rgba(255,165,0,0.2)' : 'transparent',
+                                            listStyleType: 'none',
+                                            padding: '10px',
+                                        }}
+                                            onClick={() => setMode('PG')}
+                                        >
+                                            Neet PG
+                                        </li>
+                                    </ul>
+                                </Collapse>
+                            </ListItem>
+                            {/* <ListItem style={{
+                                display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
+                                paddingLeft: '11px'
+                            }}>
                                 <button
                                     onClick={() => setMenuOpen(!menuOpen)}
-                                    style={{ background: 'transparent', border: 'none', display: 'flex', padding: '0px' }}>
+                                    style={{ background: 'transparent', border: 'none', display: 'flex'}}>
                                     <Typography style={{ fontSize: '20px', color: '#fea905' }}>
                                         Courses
                                     </Typography>
@@ -143,7 +203,6 @@ const DrawerMenu = () => {
                                     <ul class="menu-list-drawer">
                                         <li style={{ listStyleType: 'none' }}
                                             onClick={() => setMenuOpenUG(!menuOpenUG)}
-
                                         >
                                             Neet UG
                                             <img
@@ -220,7 +279,7 @@ const DrawerMenu = () => {
                                         </li>
                                     </ul>
                                 </Collapse>
-                            </ListItem>
+                            </ListItem> */}
                             {!user ?
                                 <>
                                     <ListItem onClick={() => setOpenDrawer(false)}>

@@ -82,11 +82,11 @@ const Register = ({ navbar, setNavbar }) => {
             return alert("One or more fields missing");
         }
         try {
-            const form=document.getElementById("form");
-            console.log(form);
-            const formData = new FormData(form);
+            // const form=document.getElementById("form");
+            // console.log(form);
+            // const formData = new FormData(form);
             // formData.append('name',name);
-            console.log([...formData]);
+            // console.log([...formData]);
             // console.log({name, email, password, course, city, image, gender, dob, neet, state, isPwd, occParent, quota, feeBudget,category});
             // const response = await axios.post(REGISTERATION_URL,
             //     JSON.stringify({name, email, password, course, city, image, gender, dob, neet, state, isPwd, occParent, quota, feeBudget,category}),
@@ -120,21 +120,21 @@ const Register = ({ navbar, setNavbar }) => {
                 withCredentials: true
             }
 )
-            console.log(formData);
+            // console.log(formData);
             // console.log(JSON.stringify(response));
             // const accessToken = response.accessToken
             setResponseRecieved(false);
             setSuccess(true);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             // console.log(error.response.data.msg);
             setFailiureMessage(error.response.data.msg);
             // alert(error.response.data.msg);
             setFailiure(true);
             setResponseRecieved(false);
         }
-        console.log(name, email, password, course,image);
-        console.log(JSON.stringify(image));
+        // console.log(name, email, password, course,image);
+        // console.log(JSON.stringify(image));
 
     }
 

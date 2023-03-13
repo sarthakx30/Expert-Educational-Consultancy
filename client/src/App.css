@@ -150,7 +150,7 @@ label[for=avatar]:hover,label[for=avatar]:focus{
   border:2px solid #fea905;
 }
 
-.menu-list li:hover{
+.menu-list li:hover, .menu-list li:focus,.menu-list-drawer li:focus{
   background:rgba(254, 185, 1, 0.2);
   color:black;
 }

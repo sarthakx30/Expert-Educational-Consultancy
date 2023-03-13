@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
             borderBottom: "1px solid hotpink",
         },
     },
-    courseMenuLinks:{
+    courseMenuLinks: {
         textDecoration: "none",
         color: "#fea905",
         fontSize: "17px",
@@ -77,6 +77,9 @@ const Navbar = ({ navbar, setNavbar }) => {
     const [menuOpenUG, setMenuOpenUG] = useState(false);
     const [menuOpenPG, setMenuOpenPG] = useState(false);
 
+    //mode menu
+    const [modeMenuOpen, setModeMenuOpen] = useState(false);
+
 
     // const [navbar, setNavbar] = useState(false);
     const [location, setLocation] = useState("/");
@@ -108,7 +111,7 @@ const Navbar = ({ navbar, setNavbar }) => {
     const focus = useRef();
     const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
 
-    const { user, setUser, cookieToken, setCookieToken, course, setCourse } = useContext(UserContext);
+    const { user, setUser, cookieToken, setCookieToken, course, setCourse, mode, setMode } = useContext(UserContext);
     return (
         <div>
             <CssBaseline />
@@ -129,9 +132,62 @@ const Navbar = ({ navbar, setNavbar }) => {
                                         <Typography style={{ marginLeft: 0, fontSize: "23px", fontWeight: "300" }} className={classes.logoText}>Consultancy</Typography></div>) : (<p style={{ position: "relative", top: "2px", marginBottom: "4px" }}>Home</p>)}
                                 </Link>
                                 <Link to="/about" className={classes.link}>
-                                    About
+                                    About Us
                                 </Link>
                                 <button
+                                    onMouseOver={() => setModeMenuOpen(true)}
+                                    onMouseLeave={() => setModeMenuOpen(false)}
+                                    style={{ background: 'transparent', border: 'none', display: 'flex' }}
+                                >
+                                    <Typography style={{ fontSize: '20px', color: '#fea905' }}>
+                                        Mode
+                                    </Typography>
+                                    <img src={dropDownIcon}></img>
+                                </button>
+                                <Collapse in={modeMenuOpen} timeout={500} unmountOnExit
+                                    onMouseOver={() => setModeMenuOpen(true)}
+                                    onMouseLeave={() => setModeMenuOpen(false)}
+                                    style={{
+                                        position: 'absolute',
+                                        top: '65px',
+                                        // left: `4${((window.innerWidth) / 100) - 5}%`,
+                                        zIndex: '100'
+                                    }}
+                                >
+                                    <ul class="menu-list">
+                                        <li style={{ listStyleType: 'none', padding: '10px' }}>
+                                            <button
+                                                style={{
+                                                    background: 'transparent',
+                                                    border: 'none',
+                                                    color: mode === 'UG' ? 'black' : 'orange',
+                                                    fontWeight: 'bold',
+                                                    transition: 'all 0.2s ease'
+                                                }}
+                                                onClick={() => setMode("UG")}
+                                            >
+                                                Neet UG
+                                            </button>
+                                        </li>
+                                        <li
+                                            style={{ listStyleType: 'none', padding: '10px' }}
+                                        >
+                                            <button
+                                                style={{
+                                                    background: 'transparent',
+                                                    border: 'none',
+                                                    color: mode === 'PG' ? 'black' : '#fea905',
+                                                    fontWeight: 'bold',
+                                                    transition: 'all 0.2s ease'
+                                                }}
+                                                onClick={() => setMode("PG")}
+                                            >
+                                                Neet PG
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </Collapse>
+                                {/* <button
                                     onMouseOver={() => setMenuOpen(true)}
                                     onMouseLeave={() => setMenuOpen(false)}
                                     style={{ background: 'transparent', border: 'none', display: 'flex' }}>
@@ -146,7 +202,7 @@ const Navbar = ({ navbar, setNavbar }) => {
                                     style={{
                                         position: 'absolute',
                                         top: '65px',
-                                        left: `4${((window.innerWidth) / 100) - 7}%`,
+                                        left: `5${((window.innerWidth) / 100) - 5}%`,
                                         zIndex: '100'
                                     }}
                                 >
@@ -236,7 +292,7 @@ const Navbar = ({ navbar, setNavbar }) => {
                                             </Collapse>
                                         </li>
                                     </ul>
-                                </Collapse>
+                                </Collapse> */}
 
                                 {/* <Link to="/colleges" className={classes.link}>
                                     Colleges
