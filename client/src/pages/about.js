@@ -1,14 +1,9 @@
 import React, { useEffect, useContext } from 'react';
-import { Box, Container, Typography, makeStyles } from '@material-ui/core';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
+import {Container,Accordion,AccordionSummary,AccordionDetails} from '@mui/material';
+import {makeStyles,Typography} from '@material-ui/core'
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import PropTypes from 'prop-types';
 import { UserContext } from "../UserContext";
-
 
 const useStyles = makeStyles(() => ({
     text: {
@@ -18,40 +13,6 @@ const useStyles = makeStyles(() => ({
         textJustify: "inter-word",
     }
 }));
-
-// function TabPanel(props) {
-//     const { children, value, index, ...other } = props;
-
-//     return (
-//         <div
-//             role="tabpanel"
-//             hidden={value !== index}
-//             id={`simple-tabpanel-${index}`}
-//             aria-labelledby={`simple-tab-${index}`}
-//             {...other}
-//         >
-//             {value === index && (
-//                 <Box sx={{ p: 3 }}>
-//                     <Typography>{children}</Typography>
-//                 </Box>
-//             )}
-//         </div>
-//     );
-// }
-
-// function a11yProps(index) {
-//     return {
-//         id: `simple-tab-${index}`,
-//         'aria-controls': `simple-tabpanel-${index}`,
-//     };
-// }
-
-
-// TabPanel.propTypes = {
-//     children: PropTypes.node,
-//     index: PropTypes.number.isRequired,
-//     value: PropTypes.number.isRequired,
-// };
 
 const About = ({ navbar, setNavbar }) => {
     const classes = useStyles();
@@ -69,11 +30,6 @@ const About = ({ navbar, setNavbar }) => {
             <Typography align="center" variant="h2" style={{ color: "orange", textShadow: "1px 1px 3px #0411af", marginBottom: "10px", fontFamily: "Nunito Sans", fontWeight: "600", }}>
                 EEC for NEET {mode === "UG" ? "UG" : "PG"}
             </Typography>
-            {/* <Tabs centered value={value} onChange={handleChange} aria-label="basic tabs example">
-                <Tab label="About UG" {...a11yProps(0)} />
-                <Tab label="About PG" {...a11yProps(1)} />
-            </Tabs> */}
-            {/* <TabPanel value={value} index={0}> */}
             {mode === "UG" ?
                 <>
                     <Typography className={classes.text} align="center"

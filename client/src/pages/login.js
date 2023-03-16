@@ -57,25 +57,18 @@ const Login = ({ navbar, setNavbar }) => {
                     headers: { 'Content-Type': 'application/json' },
                 }
             )
-            // console.log(response);
             setResponseRecieved(false);
             setSuccess(true);
             setUser(response.data.user);
-            // console.log(response.data.user);
             Cookies.set('token', response.data.token, { expires: new Date(new Date().getTime()+10*60*1000) });
-            // let expireTime = new Date(Date.now() +10*1000).toUTCString();
-            // document.cookie = `token=${response.data.token};expires=${expireTime}`;
             setCookieToken(Cookies.get('token'));
         } catch (error) {
             console.log(error);
             console.log(error.response.data.msg);
             setFailiureMessage(error.response.data.msg);
-            // alert(error.response.data.msg);
             setFailiure(true);
             setResponseRecieved(false);
         }
-        // console.log(email, password);
-
     }
 
     return (

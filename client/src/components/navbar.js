@@ -1,17 +1,10 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-// import Dropdown from 'react-bootstrap/Dropdown';
-// import DropdownButton from 'react-bootstrap/DropdownButton';
-// import SplitButton from 'react-bootstrap/SplitButton';
-// import Button from 'react-bootstrap/Button';
-// import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Collapse from '@mui/material/Collapse';
-import { FormControl, Select, MenuItem, FormHelperText, InputLabel } from '@mui/material';
-import { Toolbar, Container, AppBar, Typography, Grow, Grid, CssBaseline, makeStyles, useTheme, useMediaQuery } from "@material-ui/core";
+import {Toolbar,Typography,AppBar,CssBaseline, makeStyles, useTheme, useMediaQuery } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
 import DrawerMenu from "./drawer";
-import logo from '../images/logo_white.png';
 import "../App.css";
 import dropDownIcon from '../images/icons/icons8-drop-down-30.png';
 import texturedImage from "../images/textured_3_edit.png";
@@ -22,7 +15,6 @@ const LOGOUT_URL = '/api/v1/logout';
 
 const useStyles = makeStyles((theme) => ({
     navlinks: {
-        // marginLeft: theme.spacing(10),
         display: "flex",
         justifyContent: "space-around",
         width: "100%",
@@ -92,13 +84,7 @@ const Navbar = ({ navbar, setNavbar }) => {
         }
     }
     window.addEventListener('scroll', changeNavbar);
-    // useEffect(() => {
-    //     // document.getElementsByClassName("link").addEventListener('click', function(){
-    //     //     console.log("here")
-    //     // });
-    // }, [window.scrollY, window.location])
     const changeNavbarAlt = () => {
-        // console.log(location, window.location.pathname);
         if (window.location.pathname === location) {
             setNavbar(true);
         }
@@ -123,7 +109,6 @@ const Navbar = ({ navbar, setNavbar }) => {
                         <Typography style={{ fontSize: "40px" }} className={classes.logoText}>Consultancy</Typography>
                     </>) : (<></>)
                     }
-                    {/* <img src={logo} width="100%" style={{padding:"10px",backgroundColor:"#faecce"}}/> */}
                     <AppBar id="navbar" elevation={0} className={navbar ? `${classes.navbar} ${classes.active}` : `${classes.navbar}`} >
                         <Toolbar>
                             <div className={classes.navlinks}>

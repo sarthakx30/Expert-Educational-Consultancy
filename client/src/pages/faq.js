@@ -1,13 +1,7 @@
 import React, { useContext, useEffect } from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
+import {Accordion,AccordionSummary,AccordionDetails,Box,Container,Typography} from '@mui/material';
+import { makeStyles } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { Box, Container, makeStyles } from "@material-ui/core";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import PropTypes from "prop-types";
 import { UserContext } from "../UserContext.js";
 
 const useStyles = makeStyles(() => ({
@@ -36,19 +30,6 @@ function TabPanel(props) {
     </div>
   );
 }
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
 
 const FAQ = ({ navbar, setNavbar }) => {
   const classes = useStyles();

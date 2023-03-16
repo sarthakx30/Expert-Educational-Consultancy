@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Grow, Box, Grid, makeStyles, CssBaseline, Container, Paper, Typography, Divider } from '@material-ui/core';
-import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
-import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import CircularProgress from '@mui/material/CircularProgress';
-import { RadioGroup, FormControlLabel, Radio } from '@mui/material';
+import { Grow, Box, Grid, makeStyles, CssBaseline, Typography } from '@material-ui/core';
+import { Paper, RadioGroup, FormControlLabel, Radio, MenuItem, TextField, Alert, Button, Stack, CircularProgress } from '@mui/material';
 import CalendarIcon from '../images/icons/calendar-line-icon.svg';
 
 import axios from '../api/axios';
@@ -16,7 +10,7 @@ const REGISTERATION_URL = '/api/v1/register';
 const useStyles = makeStyles(() => ({
     form: {
         width: "100%",
-        padding: '20px',
+        padding: '10px',
         margin: "auto",
         display: "flex",
         flexDirection: "column",
@@ -40,18 +34,11 @@ const Register = ({ navbar, setNavbar }) => {
     const [city, setCity] = useState("");
     const [gender, setGender] = useState("female");
     const [dob, setDob] = useState("2000-05-01");
-    // const [score, setScore] = useState(100);
-    // const [airRank, setAirRank] = useState(1000);
-    // const [categoryRank, setCategoryRank] = useState(1000);
     const [neet, setNeet] = useState({
         score: 100,
         airRank: 1000,
         categoryRank: 1000
     });
-    // const [domicile, setdomicile] = useState("");
-    // const [passedTenth, setpassedTenth] = useState("");
-    // const [passedEleventh, setpassedEleventh] = useState("");
-    // const [passedTwelfth, setpassedTwelfth] = useState("");
     const [state, setState] = useState({
         domicile: "",
         passedTenth: "",
@@ -60,8 +47,6 @@ const Register = ({ navbar, setNavbar }) => {
         passedGrad: ""
     });
     const [isPwd, setPwd] = useState(false);
-    // const [fatherOccupation, setfatherOccupation] = useState("");
-    // const [motherOccupation, setmotherOccupation] = useState("");
     const [occParent, setoccParent] = useState({ fatherOccupation: "Select or Write", motherOccupation: "Select or Write" });
     const [quota, setQuota] = useState("General");
     const [feeBudget, setFeeBudget] = useState(null);
@@ -78,26 +63,13 @@ const Register = ({ navbar, setNavbar }) => {
         setResponseRecieved(true);
         setSuccess(false);
         setFailiure(false);
-        if (!name || !email || !password || !course || !gender || !dob || !category || !state || !occParent||occParent.fatherOccupation==="Select or Write"||occParent.motherOccupation==="Select or Write"||!feeBudget) {
+        if (!name || !email || !password || !course || !gender || !dob || !category || !state || !occParent || occParent.fatherOccupation === "Select or Write" || occParent.motherOccupation === "Select or Write" || !feeBudget) {
             setResponseRecieved(false);
             return alert("One or more required fields missing");
         }
-        if(course==="FCPS/CPS" || course==="DNB" || course==="MD/MS") setState({...state,passedTenth:0,passedEleventh:0,passedTwelfth:0})
-        else setState({...state,passedGrad:0});
+        if (course === "FCPS/CPS" || course === "DNB" || course === "MD/MS") setState({ ...state, passedTenth: 0, passedEleventh: 0, passedTwelfth: 0 })
+        else setState({ ...state, passedGrad: 0 });
         try {
-            // const form=document.getElementById("form");
-            // console.log(form);
-            // const formData = new FormData(form);
-            // formData.append('name',name);
-            // console.log([...formData]);
-            // console.log({name, email, password, course, city, image, gender, dob, neet, state, isPwd, occParent, quota, feeBudget,category});
-            // const response = await axios.post(REGISTERATION_URL,
-            //     JSON.stringify({name, email, password, course, city, image, gender, dob, neet, state, isPwd, occParent, quota, feeBudget,category}),
-            //     {
-            //         headers: { 'Content-Type': 'application/json'},
-            //         withCredentials: true
-            //     }
-            // )
             const formData = new FormData();
             formData.append('name', name);
             formData.append('email', email);
@@ -115,8 +87,6 @@ const Register = ({ navbar, setNavbar }) => {
             formData.append('quota', quota);
             formData.append('feeBudget', feeBudget);
             formData.append('category', category);
-            // console.log(formData);
-            // console.log(state);
             const response = await axios.post(REGISTERATION_URL,
                 formData,
                 {
@@ -124,22 +94,13 @@ const Register = ({ navbar, setNavbar }) => {
                     withCredentials: true
                 }
             )
-            // console.log(formData);
-            // console.log(JSON.stringify(response));
-            // const accessToken = response.accessToken
             setResponseRecieved(false);
             setSuccess(true);
         } catch (error) {
-            // console.log(error);
-            // console.log(error.response.data.msg);
             setFailiureMessage(error.response.data.msg);
-            // alert(error.response.data.msg);
             setFailiure(true);
             setResponseRecieved(false);
         }
-        // console.log(name, email, password, course,image);
-        // console.log(JSON.stringify(image));
-
     }
 
     return (
@@ -147,7 +108,7 @@ const Register = ({ navbar, setNavbar }) => {
             justifyContent="center"
             alignItems="center"
             minHeight="100vh"
-            style={{ margin: '100px 50px' }}
+            style={{ margin: '100px 25px' }}
         >
             {failiure ? (
                 <Grow in timeout={500}>
@@ -185,7 +146,7 @@ const Register = ({ navbar, setNavbar }) => {
             <Typography style={{ margin: '20px' }} variant="h3" align="center">
                 Register
             </Typography>
-            <Paper elevation={3} style={{ padding: '5px 0px 5px 0px' }}>
+            <Paper elevation={3} style={{ padding: '5px 0px 5px 0px', margin: '0px' }}>
                 <form onSubmit={handleSubmit} className={classes.form} id="form">
                     <Grid container spacing={0} sx={{ width: "100%" }}>
                         <Grid item sm={12} md={6}>
@@ -231,14 +192,14 @@ const Register = ({ navbar, setNavbar }) => {
                         </Grid>
                         <Grid item sm={12} md={6}>
                             <div style={{ background: 'rgba(102,173,255,0.4)', margin: '20px', padding: '10px', borderRadius: '20px' }}>
-                                <Typography variant="h4" style={{ margin: '30px 10px 10px 10px' }}>Personal Details</Typography>
+                                <Typography variant="h4" style={{ margin: '30px 0px 10px 0px' }}>Personal Details</Typography>
                                 <TextField name="name" value={name} onChange={(e) => setName(e.target.value)} style={{ margin: '15px' }} id="outlined-basic" label="Name" variant="outlined" />
                                 <TextField name="email" value={email} onChange={(e) => setEmail(e.target.value)} style={{ margin: '15px' }} id="outlined-basic" label="Email" variant="outlined" />
                                 <TextField name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} style={{ margin: '15px', marginBottom: '20px' }} id="outlined-basic" label="Password" variant="outlined" />
                                 <TextField name="city" value={city} onChange={(e) => setCity(e.target.value)} style={{ margin: '15px' }} id="outlined-basic" label="City" variant="outlined" />
                                 <TextField name="phoneNo" value={phoneNo} onChange={(e) => setPhoneNo(e.target.value)} style={{ margin: '15px' }} id="outlined-basic" label="Phone Number" variant="outlined" />
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    <Typography style={{ margin: '15px 115px 15px 15px' }}>Select your Gender</Typography>
+                                    <Typography style={{ margin: '15px' }}>Select your Gender</Typography>
                                     <RadioGroup
                                         aria-labelledby="gender-radio-buttons-group-label"
                                         defaultValue={gender}
@@ -253,9 +214,11 @@ const Register = ({ navbar, setNavbar }) => {
                                     </RadioGroup>
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    <Typography style={{ margin: '15px 10px 15px 15px' }}>Select your DOB : </Typography>
-                                    <input name="dob" style={{ background: 'transparent', border: '0px', borderTop: '2px', color: 'orange', fontWeight: "600",fontSize:'20px' }} type="date" label="DOB" value={dob} onChange={(e) => setDob(e.target.value)} id="dob" />
-                                    <img width="15px" style={{ position: 'relative', right: '15px', bottom: '2px' }} src={CalendarIcon} />
+                                    <Typography style={{ margin: '15px' }}>Select your DOB : </Typography>
+                                    <div style={{display:'flex'}}>
+                                        <input name="dob" style={{ background: 'transparent',border:'1px dashed orange', color: 'darkorange', fontWeight: "600", fontSize: '20px',padding:'10px' }} type="date" label="DOB" value={dob} onChange={(e) => setDob(e.target.value)} id="dob" />
+                                        <img width="15px" style={{ position: 'relative', right: '25px', bottom: '2px' }} src={CalendarIcon} />
+                                    </div>
                                 </div>
                             </div>
                         </Grid>
@@ -508,7 +471,7 @@ const Register = ({ navbar, setNavbar }) => {
                             <div style={{ background: 'rgba(102,173,255,0.4)', margin: '20px', padding: '10px', borderRadius: '20px' }}>
                                 <Typography variant="h4" style={{ margin: '15px' }}>Other Info</Typography>
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    <Typography style={{ margin: '20px' }}>Are you a person with disablilties ? </Typography>
+                                    <Typography style={{ margin: '20px' }}>Are you a person with disablilties?</Typography>
                                     <RadioGroup
                                         aria-labelledby="pwd-radio-buttons-group-label"
                                         defaultValue={isPwd}
@@ -556,7 +519,7 @@ const Register = ({ navbar, setNavbar }) => {
                                 <div style={{ margin: '15px' }}>
                                     <Typography variant="h6">Parent's Occupation</Typography>
                                     <TextField
-                                        select={occParent.motherOccupation==="Select or Write"||occParent.motherOccupation === "ESI" || occParent.motherOccupation === "Defence" || occParent.motherOccupation === "Paramilitary" || occParent.motherOccupation === "Judiciary" || occParent.motherOccupation === "Housewife" || occParent.motherOccupation === "Doctor" || occParent.motherOccupation === "Teacher"}
+                                        select={occParent.motherOccupation === "Select or Write" || occParent.motherOccupation === "ESI" || occParent.motherOccupation === "Defence" || occParent.motherOccupation === "Paramilitary" || occParent.motherOccupation === "Judiciary" || occParent.motherOccupation === "Housewife" || occParent.motherOccupation === "Doctor" || occParent.motherOccupation === "Teacher"}
                                         variant={occParent.motherOccupation ? "filled" : "standard"}
                                         helperText="Enter Mother's occupation"
                                         value={occParent.motherOccupation}
@@ -576,7 +539,7 @@ const Register = ({ navbar, setNavbar }) => {
                                         <MenuItem value="Other">Other</MenuItem>
                                     </TextField>
                                     <TextField
-                                        select={occParent.fatherOccupation==="Select or Write"||occParent.fatherOccupation === "ESI" || occParent.fatherOccupation === "Defence" || occParent.fatherOccupation === "Paramilitary" || occParent.fatherOccupation === "Judiciary" || occParent.fatherOccupation === "Businessman" || occParent.fatherOccupation === "Doctor" || occParent.fatherOccupation === "Teacher"}
+                                        select={occParent.fatherOccupation === "Select or Write" || occParent.fatherOccupation === "ESI" || occParent.fatherOccupation === "Defence" || occParent.fatherOccupation === "Paramilitary" || occParent.fatherOccupation === "Judiciary" || occParent.fatherOccupation === "Businessman" || occParent.fatherOccupation === "Doctor" || occParent.fatherOccupation === "Teacher"}
                                         helperText="Enter Father's occupation"
                                         value={occParent.fatherOccupation}
                                         variant={occParent.fatherOccupation ? "filled" : "standard"}
