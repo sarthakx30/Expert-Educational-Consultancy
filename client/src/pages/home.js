@@ -27,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
     transition: "all 0.5s ease",
     border: "2px solid orange",
     "&:hover,&:focus": {
+      color: "orange",
       boxShadow:
         "0px 0px 6px 2.5px #fea905 ,1px 1px 1px 0px #ECDE65,1px 1px 1px 0px #ECDE65",
-      color: "#fea905",
       background: "linear-gradient(to right bottom,black,#0411af)",
     },
   },
@@ -320,8 +320,9 @@ const Home = () => {
                     className={classes.btn}
                     // href="/register"
                     variant="contained"
+                    style={{padding:"0px"}}
                   >
-                    <Link className={classes.link} to="/register" style={{}}>
+                    <Link className={classes.link} to="/register" style={{padding:'5px 10px'}}>
                       Take Membership
                     </Link>
                   </Button>

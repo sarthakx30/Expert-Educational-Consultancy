@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import Collapse from '@mui/material/Collapse';
-import {Toolbar,Typography,AppBar,CssBaseline, makeStyles, useTheme, useMediaQuery } from "@material-ui/core";
+import { Toolbar, Typography, AppBar, CssBaseline, makeStyles, useTheme, useMediaQuery } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
         color: "#fea905",
         fontSize: "20px",
         "&:hover": {
-            color: "hotpink",
-            borderBottom: "1px solid hotpink",
+            color: "darkorange",
+            borderBottom: "1px solid orange",
         },
     },
     courseMenuLinks: {
@@ -135,15 +135,15 @@ const Navbar = ({ navbar, setNavbar }) => {
                                 <Collapse in={modeMenuOpen} timeout={500} unmountOnExit
                                     onMouseOver={() => setModeMenuOpen(true)}
                                     onMouseLeave={() => setModeMenuOpen(false)}
-                                    style={navbar?{
+                                    style={navbar ? {
                                         position: 'absolute',
                                         top: '70px',
-                                        left:'50%',
+                                        left: '50%',
                                         zIndex: '100'
-                                    }:{
+                                    } : {
                                         position: 'absolute',
                                         top: '65px',
-                                        left:'45%',
+                                        left: '45%',
                                         zIndex: '100'
                                     }}
                                 >
@@ -154,6 +154,7 @@ const Navbar = ({ navbar, setNavbar }) => {
                                                     background: 'transparent',
                                                     border: 'none',
                                                     color: mode === 'UG' ? 'black' : 'orange',
+                                                    borderLeft: mode === 'UG' ? '' : 'black',
                                                     fontWeight: 'bold',
                                                     transition: 'all 0.2s ease'
                                                 }}
@@ -170,6 +171,7 @@ const Navbar = ({ navbar, setNavbar }) => {
                                                     background: 'transparent',
                                                     border: 'none',
                                                     color: mode === 'PG' ? 'black' : '#fea905',
+                                                    borderLeft: mode === 'PG' ? '' : 'black',
                                                     fontWeight: 'bold',
                                                     transition: 'all 0.2s ease'
                                                 }}
