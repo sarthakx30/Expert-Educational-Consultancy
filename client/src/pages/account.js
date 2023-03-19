@@ -568,7 +568,7 @@ const Account = ({ navbar, setNavbar }) => {
                         (<div className={classes.dashboard}>
                             {!isMobile ?
                                 <Paper style={{borderRadius:'0px 20px 20px 0px'}} elevation={5} className={classes.sidebar}>
-                                    <Typography align="center" variant="h5" style={{ color: 'black',background:'#2065e6',padding:'20px 10px',borderRadius:'0px 20px 0px 0px' }} className={classes.text1}>
+                                    <Typography align="center" variant="h5" style={{ color: 'white',background:'#2065e6',padding:'20px 10px',borderRadius:'0px 20px 0px 0px' }} className={classes.text1}>
                                         Navigation
                                     </Typography>
                                     <div className={classes.sidebar_menu}>
