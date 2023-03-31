@@ -105,7 +105,6 @@ const Home = () => {
         // else {
         //   entry.target.classList.remove("show");
         // }
-        console.log(entry.target.classList);
       });
     });
     const targets = document.querySelectorAll(".scroll");

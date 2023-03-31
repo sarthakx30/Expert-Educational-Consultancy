@@ -4,6 +4,14 @@
     transition: all 1s !important;
 }
 
+.scrollDelayed1s{
+    transition-delay: 1s !important;
+}
+
+.scrollDelayed2s{
+    transition-delay: 2s !important;
+}
+
 .scrollRight{
     transform: translateX(100%) !important;
 }

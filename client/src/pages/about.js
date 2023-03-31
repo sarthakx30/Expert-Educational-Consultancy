@@ -4,6 +4,13 @@ import { makeStyles, Typography } from '@material-ui/core'
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import PropTypes from 'prop-types';
 import { UserContext } from "../UserContext";
+import Timeline from '@mui/lab/Timeline';
+import TimelineItem from '@mui/lab/TimelineItem';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineDot from '@mui/lab/TimelineDot';
+import '../scrollAnimation.css'
 
 const useStyles = makeStyles(() => ({
     text: {
@@ -12,6 +19,9 @@ const useStyles = makeStyles(() => ({
         textAlign: "justify",
         textJustify: "inter-word",
     },
+    timeline: {
+        overflow: 'hidden',
+    }
 }));
 
 const About = ({ navbar, setNavbar }) => {
@@ -24,8 +34,28 @@ const About = ({ navbar, setNavbar }) => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
     const { mode } = useContext(UserContext);
+
+    //Scroll Animation
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+            }
+            // else {
+            //   entry.target.classList.remove("show");
+            // }
+        });
+    });
+    const targets = document.querySelectorAll(".scroll");
+    targets.forEach(target => {
+        // console.log(target);
+        observer.observe(target);
+    });
+
     const [accordionSelected, setAccordionSelected] = useState(false);
+
     return (
         <Container style={{ margin: "80px auto" }}>
             <Typography align="center" variant="h2" style={{ color: "orange", textShadow: "1px 1px 3px #0411af", marginBottom: "10px", fontFamily: "Nunito Sans", fontWeight: "600", }}>
@@ -52,7 +82,7 @@ const About = ({ navbar, setNavbar }) => {
                 :
                 <>
 
-                    <Typography variant="h4" className={classes.text} style={{ color: '#fea905' }}>Our Expert Educational Consultancy</Typography>
+                    <Typography variant="h4" className={classes.text} style={{ color: '#fea905',fontWeight:'800' }}>Our Expert Educational Consultancy</Typography>
                     <Typography className={classes.text} align="center" variant="body1" style={{ marginBottom: '20px' }}>
                         Expert Educational Consultancy one of the leading Medical Admission Counselling Service Provider was established in the year 1995. Our permanent Head Office is situated in North West Delhi supervising more than 10+ branches in all over India. In the last 27 years, we can proudly say that through our assistance approx. 10,500 students have got admission in prestigious government and private colleges of India.               
 Our Managing Director, Mr. Shamsher Rana, who has personally visited private medical colleges in 12 states >90% in India which made him one of the best Medical Admission Consultant, with 100% honesty and transparency has every year managed to enrolled >95% of our students in best colleges.
@@ -65,66 +95,95 @@ Our Managing Director, Mr. Shamsher Rana, who has personally visited private med
                         <br />
 
                         In India, the process of getting admitted to a medical college can be quite competitive and challenging. There are several factors that you need to consider, including your rank in NEET (National Eligibility cum Entrance Test), Domicile, Category, financial capacity to pay fees, branch, availability of seats, etc. which are explained under :
-                        <ul style={{listStyleType:'none',marginTop:'10px',position:'relative',right:'10px'}}>
-                            <li style={{margin:'5px'}}>
+                        <ul style={{ listStyleType: 'none', marginTop: '10px', position: 'relative', right: '10px' }}>
+                            <li style={{ margin: '5px' }}>
                                 <Typography className={classes.text}
                                     style={{ color: 'darkorange', background: '#ffe8b0', padding: '3px 7px', borderRadius: '10px', width: '260px' }} variant="h7">
                                     NEET AIR (All India Rank)
                                 </Typography>
-                                <Typography style={{margin:'10px'}} className={classes.text} variant="body2">The All India Rank (AIR) is the rank of a candidate in the NEET exam. It is calculated based on the total marks obtained by the candidate in the exam. The higher the rank, the better the chances of getting admission in a good medical college.
+                                <Typography style={{ margin: '10px' }} className={classes.text} variant="body2">The All India Rank (AIR) is the rank of a candidate in the NEET exam. It is calculated based on the total marks obtained by the candidate in the exam. The higher the rank, the better the chances of getting admission in a good medical college.
                                 </Typography>
                             </li>
-                            <li style={{margin:'5px'}}>
+                            <li style={{ margin: '5px' }}>
                                 <Typography className={classes.text}
                                     style={{ color: 'darkorange', background: '#ffe8b0', padding: '3px 7px', borderRadius: '10px', width: '100px' }} variant="h7">
                                     Category
                                 </Typography>
-                                <Typography style={{margin:'10px'}} className={classes.text} variant="body2">The All India Rank (AIR) is the rank of a candidAdmissions guidance for MD/MS/DIPLOMA/DNB courses depend on the category of the student such as General, EWS, OBC, SC, ST, PwD etc. Different State/ institutes have different reservation criteria for each category, and EEC have complete knowledge about the same.
+                                <Typography style={{ margin: '10px' }} className={classes.text} variant="body2">The All India Rank (AIR) is the rank of a candidAdmissions guidance for MD/MS/DIPLOMA/DNB courses depend on the category of the student such as General, EWS, OBC, SC, ST, PwD etc. Different State/ institutes have different reservation criteria for each category, and EEC have complete knowledge about the same.
                                 </Typography>
                             </li>
-                            <li style={{margin:'5px'}}>
+                            <li style={{ margin: '5px' }}>
                                 <Typography className={classes.text}
-                                    style={{  color: 'darkorange',background:'#ffe8b0',padding:'3px 7px',borderRadius:'10px',width:'98px'  }} variant="h7">
+                                    style={{ color: 'darkorange', background: '#ffe8b0', padding: '3px 7px', borderRadius: '10px', width: '98px' }} variant="h7">
                                     Domicile
                                 </Typography>
-                                <Typography style={{margin:'10px'}} className={classes.text} variant="body2">Domicile of the student means where the student lives or have property / ancestral property or have done his/her education. It plays a crucial role in the admission process. Some institutes have different quotas for students of the same state and outside of the state, which EEC have complete information about.
+                                <Typography style={{ margin: '10px' }} className={classes.text} variant="body2">Domicile of the student means where the student lives or have property / ancestral property or have done his/her education. It plays a crucial role in the admission process. Some institutes have different quotas for students of the same state and outside of the state, which EEC have complete information about.
                                 </Typography>
                             </li>
-                            <li style={{margin:'5px'}}>
+                            <li style={{ margin: '5px' }}>
                                 <Typography className={classes.text}
-                                    style={{  color: 'darkorange',background:'#ffe8b0',padding:'3px 7px',borderRadius:'10px',width:'120px'  }} variant="h7">
+                                    style={{ color: 'darkorange', background: '#ffe8b0', padding: '3px 7px', borderRadius: '10px', width: '120px' }} variant="h7">
                                     Tuition Fee
                                 </Typography>
-                                <Typography style={{margin:'10px'}} className={classes.text} variant="body2">The tuition fee or the financial capacity to pay fees for different branch varies from institute to institute, and the consultancy have updated information about the same to guide the student in the right direction.
+                                <Typography style={{ margin: '10px' }} className={classes.text} variant="body2">The tuition fee or the financial capacity to pay fees for different branch varies from institute to institute, and the consultancy have updated information about the same to guide the student in the right direction.
                                 </Typography>
                             </li>
-                            <li style={{margin:'5px'}}>
+                            <li style={{ margin: '5px' }}>
                                 <Typography className={classes.text}
-                                    style={{  color: 'darkorange',background:'#ffe8b0',padding:'3px 7px',borderRadius:'10px',width:'77px'  }} variant="h7">
+                                    style={{ color: 'darkorange', background: '#ffe8b0', padding: '3px 7px', borderRadius: '10px', width: '77px' }} variant="h7">
                                     Branch
                                 </Typography>
-                                <Typography style={{margin:'10px'}} className={classes.text} variant="body2">Government / Private colleges Branch preference as per requirement of the students (recognised / permitted).
+                                <Typography style={{ margin: '10px' }} className={classes.text} variant="body2">Government / Private colleges Branch preference as per requirement of the students (recognised / permitted).
                                 </Typography>
                             </li>
                         </ul>
                     </Typography>
-                    <Typography variant="h4" className={classes.text} style={{ color: '#fea905' }}>Expert Educational Consultancy Admission Counselling Procedure
+                    <Typography variant="h4" className={classes.text} style={{ color: '#fea905', marginBottom: '20px',fontWeight:'800' }}>
+                        Expert Educational Consultancy Admission Counselling Procedure
                     </Typography>
-                    <Typography className={classes.text} align="center" variant="body1" style={{ marginBottom: '20px' }}>
-                        <ul>
-                            <li>
+                    <Timeline position="alternate" className={classes.timeline}>
+                        <TimelineItem>
+                            <TimelineSeparator className="scroll scrollDelayed1s scrollDown">
+                                <TimelineDot sx={{ backgroundColor: 'orange' }} />
+                                <TimelineConnector sx={{ backgroundColor: '#ffe0b0',height:'100px' }} />
+                            </TimelineSeparator>
+                            <TimelineContent className="scroll scrollDelayed2s scrollRight">
                                 Once students come to us, first we do the profiling, if the student is qualified and eligible in certain criteria, only then we take the case.
-                            </li>
-                            <li>
+                            </TimelineContent>
+                        </TimelineItem>
+                        <TimelineItem>
+                            <TimelineSeparator className="scroll scrollDelayed1s scrollDown">
+                                <TimelineDot sx={{ backgroundColor: '#fea905' }} />
+                                <TimelineConnector sx={{ backgroundColor: '#ffe0b0',height:'100px' }} />
+                            </TimelineSeparator>
+                            <TimelineContent className="scroll scrollDelayed2s scrollLeft">
                                 After profiling, our MD Shamsher Rana make personalized report of every student as per their NEET AIR, Category, Domicile, Budget & branch Preference etc.
-                            </li>
-                            <li>
+                            </TimelineContent>
+                        </TimelineItem>
+                        <TimelineItem>
+                            <TimelineSeparator className="scroll scrollDelayed1s scrollDown">
+                                <TimelineDot sx={{ backgroundColor: '#fea905' }} />
+                                <TimelineConnector sx={{ backgroundColor: '#ffe0b0',height:'100px' }} />
+                            </TimelineSeparator>
+                            <TimelineContent className="scroll scrollDelayed2s scrollRight">
                                 Next, we provide list of documents required at the time of counselling and admission. Also help them in arranging all the documents and resizing them in certain criteria as well as converting the documents in PDF or JPG file as per the requirement.
-                            </li>
-                            <li>
+                            </TimelineContent>
+                        </TimelineItem>
+                        <TimelineItem>
+                            <TimelineSeparator className="scroll scrollDelayed1s scrollDown">
+                                <TimelineDot sx={{ backgroundColor: '#fea905' }} />
+                                <TimelineConnector sx={{ backgroundColor: '#ffe0b0',height:'100px' }} />
+                            </TimelineSeparator>
+                            <TimelineContent className="scroll scrollDelayed2s scrollLeft">
                                 We guide them in filling the form for MCC counselling as well as for state counselling. Then we create the choice filling list considering all their aspects.
-                            </li>
-                            <li>
+                            </TimelineContent>
+                        </TimelineItem>
+                        <TimelineItem>
+                            <TimelineSeparator className="scroll scrollDelayed1s scrollDown">
+                                <TimelineDot sx={{ backgroundColor: '#fea905' }} />
+                                <TimelineConnector sx={{ backgroundColor: '#ffe0b0',height:'100px' }} />
+                            </TimelineSeparator>
+                            <TimelineContent className="scroll scrollDelayed2s scrollRight">
                                 When the allotment result comes, we help them in taking decision in the following questions:
                                 <br />
                                 1) Whether to take admission in that college?
@@ -132,13 +191,18 @@ Our Managing Director, Mr. Shamsher Rana, who has personally visited private med
                                 2) Whether to leave that college?
                                 <br />
                                 3) Whether to go for upgradation?
-                            </li>
-                            <li>
+                            </TimelineContent>
+                        </TimelineItem>
+                        <TimelineItem>
+                            <TimelineSeparator className="scroll scrollDelayed1s scrollDown">
+                                <TimelineDot sx={{ backgroundColor: '#fea905' }} />
+                            </TimelineSeparator>
+                            <TimelineContent className="scroll scrollDelayed2s scrollLeft">
                                 After the student has taken admission, we check on the security refund process and update them time to time till they get their security deposit refunded.
-                            </li>
-                        </ul>
-                    </Typography>
-                    <div className="accordions">
+                            </TimelineContent>
+                        </TimelineItem>
+                    </Timeline>
+                    <div className="accordions" style={{ marginTop: '20px' }}>
                         <Accordion style={{ margin: '10px', borderRadius: '10px' }}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
